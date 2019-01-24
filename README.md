@@ -344,17 +344,17 @@ class Point {
 	* 处理Event
 	* 直到EventQueue为空
 
-	![Event Queue](Dart2基础篇/dart_eventqueue.png)
+	![Event Queue](https://github.com/YourMelody/yourmelody.github.io/blob/master/2018/12/29/Dart2基础篇/dart_eventqueue.png)
 
 	这些Event包括了用户输入，点击，Timer，文件IO等
 
-	![Event Queue](Dart2基础篇/dart_eventtype.png)
+	![Event Queue](https://github.com/YourMelody/yourmelody.github.io/blob/master/2018/12/29/Dart2基础篇/dart_eventtype.png)
 
 * __单线程模型__
 
 	_Dart_ 中没有线程的概念，只有isolate，每个isolate都是隔离的，并不会共享内存。一个 _Dart_ 程序是在Main isolate的main函数开始，在main函数结束后，Main isolate开始一个一个的处理Event Queue中的每一个Event。
 
-	![Event Queue](Dart2基础篇/dart_isolate.png)
+	![Event Queue](https://github.com/YourMelody/yourmelody.github.io/blob/master/2018/12/29/Dart2基础篇/dart_isolate.png)
 
 * __Event Queue以及Microtask Queue__
 
@@ -368,7 +368,7 @@ class Point {
 	* 优先全部执行完Microtask Queue中的Event
 	* 直到Microtask Queue为空时，再执行Event Queue中的Event
 	
-	![Event Queue](Dart2基础篇/dart_microtaskqueue.png)
+	![Event Queue](https://github.com/YourMelody/yourmelody.github.io/blob/master/2018/12/29/Dart2基础篇/dart_microtaskqueue.png)
 	
 	 _Dart_ 中只知道Event处理的先后顺序，并不知道某个Event执行的具体时间点。
 	
