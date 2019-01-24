@@ -1,3 +1,5 @@
+# 一、Dart基础
+
 ## 1、一些重要的概念
 
 * _Dart_ 所有的东西都是对象，即使是数字、函数、null也都是对象。所有的对象都继承自 Object 类。
@@ -7,10 +9,8 @@
 * 没有初始化的变量都会被赋予默认值 null。
 * final的值只能被设定一次。const 是一个编译时的常量，可以通过 const 来创建常量值，var c=const[];这里 c 还是一个变量，只是被赋值了一个常量值，它还是可以赋其它值。
 
-<!------more----->
-
-## 2、_Dart_ 中的58个关键字
-![关键字](Dart2基础篇/dart_keyword.png)
+## 2、_Dart_ 中的关键字
+![关键字](https://github.com/YourMelody/yourmelody.github.io/blob/master/2018/12/29/Dart2基础篇/dart_keyword.png)
 
 ## 3、常量与变量
 name的类型被推断为String:
@@ -502,6 +502,3 @@ class Point {
 	>> complete~
 	>> b-type:Null
 	>> b = null
-	
-
-[Dart基础篇和Widget基础篇所有代码地址](https://github.com/YourMelody/FlutterStudy "https://github.com/YourMelody/FlutterStudy")
