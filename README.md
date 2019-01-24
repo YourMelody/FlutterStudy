@@ -502,3 +502,468 @@ class Point {
 	>> complete~
 	>> b-type:Null
 	>> b = null
+
+
+
+# 二、Widget基础篇
+
+## 1、Widget State
+在 __Flutter__ 中，一切能显示的都是 __Widget__ 。 __Widget__ 是一切的基础，作为响应式的渲染，属于 __MVVM__ 的实现机制。我们可以通过修改数据，再用 __setState__ 设置数据， __Flutter__ 会自动通过绑定的数据更新 __Widget__ 。我们需要做的就是实现 __Widget__ 页面，并且和数据绑定起来。
+
+__Widget__ 分为 _有状态_ 和 _无状态_ 两种。在 __Flutter__ 中每个页面都是一帧。无状态就是保持在那一帧；有状态的 __Widget__ 当数据更新时，其实就是绘制了新的 __Widget__ 。
+
+* 无状态 __StatelessWidget__
+
+	无状态的 __Widget__ 实现很简单：创建一个继承自 __StatelessWidget__ 的 __Widget__ ，并通过 __build__ 方法返回一个布局好的控件。__Widget__ 和 __Widget__ 之间通过 __child__ 或 __children__ 进行嵌套。
+
+```dart
+import 'package:flutter/material.dart';
+
+class MyStateless extends StatelessWidget {
+    final String text;
+    MyStateless(this.text);
+
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            appBar: AppBar(
+                title: Text('StatelessWidget'),
+            ),
+            body: Container(
+                color: Colors.white,
+                //Dart语法中，?? 表示如果text为空，就返回 ?? 后的内容。
+                child: Text(text ?? "这就是无状态DMEO"),
+            ),
+        );
+    }
+}
+```
+* 有状态 __StatefulWidget__
+
+有状态的 __Widget__ 需要管理 __state__ ,通过 __setState__ 改变数据触发 __Widget__ 重新构建刷新。主要的生命周期有：
+
+> __initState:__ 初始化
+> __didChangeDependencies:__ 在 __initState__ 之后 __build__ 之前调用
+> __dispose:__ 销毁
+
+```dart
+class MyStateful extends StatefulWidget {
+    @override
+    State<StatefulWidget> createState() {
+        return _MyStatefulState();
+    }
+}
+
+class _MyStatefulState extends State<MyStateful> {
+    int pressCount;
+    @override
+    void initState() {
+        super.initState();
+        pressCount = 0;
+    }
+
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            child: FlatButton(
+                onPressed: () {
+                    setState(() {
+                       pressCount += 1;
+                    });
+                 },
+            
+                 child: Center(
+                    child: Text('有状态的Widget，可戳👇--$pressCount'),
+                 )
+             ),
+        );
+    }
+}
+```
+不管是有状态的还是无状态的 __Widget__ ，我们需要做的就是在 __build__ 中堆积我们的布局，把数据添加到 __Widget__ 中，有状态的可以通过 __setState__ 改变数据，从而刷新UI，就这么简单。
+
+## 2、Flutter中的Widget整理
+先来看一张图，这张图中几乎包含了 __Flutter__ 中所有的 __Widget__：
+
+<img src="https://camo.githubusercontent.com/ce09e689b2860fb7e47d511a571ba47ab6705c79/68747470733a2f2f696d672e616c6963646e2e636f6d2f7466732f54423175325f3466567a714b31526a535a467658586342375658612d3834362d343638352e706e67" align=center width="400">
+
+我们先针对其中比较常用的讲解下其特性和使用方法。
+
+## 3、布局相关的常用Widget
+* __Container__
+
+	最常用的布局。只能包含一个 __child__ ，默认铺满。支持配置 __padding__ 、__margin__ 、__color__ 、宽高、__decoration__ (一般配置边框和阴影等)。不是所有的控件都有 __padding__ 、__margin__ 、__color__ 、宽高等属性，所以才会有 __Padding__ 、__Center__ 等 __Widget__ 的存在。
+
+	> __alignment:__ 设置Container内child的对其方式（注意不是Container本身的对其方式）
+	> 
+	> __width/height/color:__ 设置Container的宽高和背景色
+	> 
+	> __padding/margin:__ padding设置Container边缘和其child内容的距离，margin设置Container和其它外部Widget的距离。
+	> 
+	> __decoration:__ Container的修饰器，主要设置背景、边框、圆角等。注意：如果设置了该属性，就不能设置Container的color，否则会抛出异常
+
+	```dart
+	_containerDemo() {
+	    return Container(
+	        alignment: Alignment.center,
+	        child: Text('balabalabala'),
+	        
+	        height: 49,
+	        margin: EdgeInsets.all(20),
+	        padding: EdgeInsets.only(top: 10),
+	        // color: Colors.blueGrey,
+	        
+	        // 使用它就不能设置Container的color
+	        decoration: BoxDecoration(
+	            borderRadius: BorderRadius.only(
+	                topLeft: Radius.circular(10),
+	                bottomRight: Radius.circular(10)
+	            ),
+	            color: Colors.blue,
+	            border: Border.all(
+	                color: Color(0xFF000000),
+	                width: 1
+	            )
+	        ),
+	    );
+	}
+	```
+* __Column、Row和Expanded__
+
+	竖直布局和水平布局也是很常见的场景。它们都可以通过 __children__ 设置多个子 __Widget__ ，可以设置主轴和副轴方向布局方式等。而 __Expended__ 在 __Column__ 和 __Row__ 中默认代表着平均充满。当然可以通过设置 __flex__ 属性决定占屏比例。
+
+	```dart
+	_columnDemo() {
+	    return Column(
+	        children: <Widget>[
+	            Expanded(child: Container(
+	                child: Text('aaa'),
+	                color: Colors.grey,
+	            )),
+	            Expanded(child: Container(
+	                child: Text('bbb'),
+	                color: Colors.blueGrey,
+	            )),
+	            Expanded(
+	                child: Container(
+	                    child: Text('ccc'),
+	                    color: Colors.red
+	                ),
+	                flex: 2
+	            )
+	        ],
+	        // 主轴方向布局方式
+	        mainAxisAlignment: MainAxisAlignment.center,
+	        // 大小按照最大充满（这里使用Expanded会最大充满不受该属性设置影响）
+	        mainAxisSize : MainAxisSize.min,
+	        // 副轴方向布局方式
+	        crossAxisAlignment: CrossAxisAlignment.center
+	    );
+	}
+	```
+
+## 4、其它常用Widget
+__Flutter__ 中除了布局的 __Widget__ ，还有交互显示和完整页面呈现的 __Widget__ 。其中常见的有 __MaterialApp__ 、__Scaffold__ 、__Appbar__ 、__Text__ 、__Image__ 、__FlatButton__ 等。
+
+![常用Widget及特点](https://github.com/YourMelody/yourmelody.github.io/blob/master/2019/01/05/Widget基础篇/widget_desc.png)
+
+* __Text__
+
+	> __textAlign:__ 设置文本对其方式：center、left、right、start、end
+	>
+	> __maxLines:__ 设置最多显示的行数
+	> 
+	> __overflow:__ 文本溢出时怎么处理。clip：直接切断；ellipsis：...；fade：渐变(上下渐变，不是左右)
+	> 
+	> __style:__ 通过TextStyle设置字体大小、颜色、weight等
+
+	```dart
+	_textDemo() {
+	    return Container(
+	        width: 100,
+	        child: Text(
+	            'balabalabalabalabalabalabalabalabalabalabalabalabalabalabala',
+	            textAlign: TextAlign.end,
+	            style: TextStyle(
+	                fontSize: 20,
+	                color: Colors.white,
+	                fontWeight: FontWeight.w500
+	            ),
+	            maxLines: 1,
+	            overflow: TextOverflow.fade,
+	        )
+	    );
+	}
+	```
+* __image__
+
+	加载图片有四种方式分别为：
+	> __Image.asset:__ 加载项目资源目录中的图片，相对路径
+	>
+	> __Image.network:__ 加载网络图片
+	>
+	> __Image.file:__ 加载本地图片，绝对路径
+	>
+	> __Image.memory:__ 加载Uint8List资源图片（没使用过😢）
+	
+	通过fit属性设置图片的填充方式：
+	> __BoxFit.fill:__ 图片拉伸以充满父容器
+	>
+	> __BoxFit.contain:__ 比例不变拉伸，可能会有空隙（水平和竖直方向最多有一个方向有空隙）
+	>
+	> __BoxFit.cover:__ 可能被裁减，比例不变拉伸，充满父容器
+	>
+	> __BoxFit.fitWidth/fitHeight:__ 宽度/高度充满
+	>
+	> __BoxFit.scaleDown:__ 效果和contain类似，但图片不会被拉伸超过源图片大小
+	
+	```dart
+	_imageDemo() {
+	    return Container(
+	        alignment: Alignment.center,
+	        width: 300,
+	        height: 400,
+	        color: Colors.blue,
+	        child: Image.network(
+	            'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2527385882,2413489660&fm=26&gp=0.jpg',
+	            fit: BoxFit.contain,
+	        )
+	    );
+	}
+	```
+
+* __TextField__
+
+	__TextField__ 和 __CupertinoTextField__ 是两种不同风格的 __textField__ ，两者样式有很大差异，用法略有不同。先来看下 __TextField__ 的基本使用：
+	
+	```dart
+	_textFieldDemo0() {
+	    return TextField(
+	        maxLength: 30,
+	        maxLines: 1,
+	        // 是否自动聚焦
+	        autofocus: false,
+	        // 是否为密码输入框
+	        obscureText: false,
+	        textAlign: TextAlign.left,
+	        style: TextStyle(
+	            fontSize: 17,
+	            color: Colors.black
+	        ),
+	        onChanged: (text) {
+	            print('onChanged:--$text--');
+	        },
+	        onSubmitted: (text) {
+	            print('onSubmitted:--$text--');
+	        },
+	        // 装饰效果
+	        decoration: InputDecoration(
+	            // decoration是否使用fillColor填充，默认为false
+	            filled: false,
+	            fillColor: Colors.red,
+	            hintText: 'placeholder',
+	            helperText: 'helperText',
+	            labelText: 'labelText'
+	        ),
+	        enabled: true,
+	        // 在onSubmitted之前调用。实现该方法后，点键盘return输入框不会失去焦点
+	        onEditingComplete: () {
+	            print('TextField:complete');
+	        }
+	    );
+	}
+	```
+	下面 __CupertinoTextField__ （iOS风格的TextField）的基本使用：
+	
+	```dart
+	_textFieldDemo1() {
+	    return CupertinoTextField(
+	        maxLength: 200,
+	        maxLines: 1,
+	        autofocus: false,
+	        // 密码
+	        obscureText: false,
+	        autocorrect: false,
+	        textAlign: TextAlign.left,
+	        style: TextStyle(
+	            fontSize: 17,
+	            color: Colors.black
+	        ),
+	        onChanged: (text) {
+	            print('onChanged:--$text--');
+	        },
+	        onSubmitted: (text) {
+	            print('onSubmitted:--$text--');
+	        },
+	        placeholder: 'placeholder',
+	        clearButtonMode: OverlayVisibilityMode.editing,
+	        enabled: true,
+	        // 设置光标宽度，默认为2
+	        cursorWidth: 2,
+	        // 设置光标颜色，默认为blue
+	        cursorColor: Colors.red,
+	        // 在onSubmitted之前调用。实现了该方法后，按return不会让textField失去焦点
+	        onEditingComplete: () {
+	            print('CupertinoTextField:complete');
+	        }
+	    );
+	}
+	```
+	<img src="https://github.com/YourMelody/yourmelody.github.io/blob/master/2019/01/05/Widget基础篇/show_textfield.gif" width="240" align=center>
+
+* __RaisedButton & FlatButton__
+	
+	FlatButton用法和RaisedButton基本相同，但样式上FlatButton属于扁平化，RaisedButton属于拟物化，有立体感（凸起），可以设置Button底部阴影效果。
+	
+	```dart
+	// RaisedButton 凸起效果
+	_raisedButtonDemo() {
+	    return RaisedButton(
+	        onPressed: () => _showMyDialog(),
+	        // highlight状态发生变化就调用（高亮和取消高亮都调用）
+	        onHighlightChanged: (value) {
+	            print('highlight changed: ${value}');
+	        },
+	        // 文本文字颜色
+	        textColor: Colors.white,
+	        // 背景色
+	        color: Colors.blue,
+	        child: Text('戳'),
+	        padding: EdgeInsets.all(10),
+	        shape: RoundedRectangleBorder(
+	            borderRadius: BorderRadius.circular(20),
+	            side: BorderSide(
+	                color: Colors.black,
+	                width: 1
+	            )
+	        ),
+	        elevation: 10,
+	    );
+	}
+	```
+* __OutlineButton__
+
+	线框按钮，它的color属性不会生效（即不能通过color设置OutlineButton的背景色），带有默认边框。其余用法和效果同FlatButton，都是扁平化的效果。
+	
+	```dart
+	// OutlineButton 扁平化，默认带边框
+	_outlineButtonDemo() {
+	    return OutlineButton(
+	        onPressed: () => _showMyDialog(),
+	        textColor: Colors.blue,
+	        child: Text('balabala'),
+	        padding: EdgeInsets.all(10),
+	        // borderSide可以设置边框的颜色、宽度和边框样式（none和solid两种）
+	        borderSide: BorderSide(color: Colors.blue),
+	        shape: RoundedRectangleBorder(
+	            borderRadius: BorderRadius.circular(20),
+	            // 这里的BorderSide只可以设置边框样式，并且优先级低
+	            side: BorderSide(
+	                style: BorderStyle.solid
+	            )
+	        )
+	    );
+	}
+	```
+* __RawMaterialButton__
+
+	其效果类似FlatButton，用法与上面的三种button稍有差异。上面介绍的几种button，它们的很多属性（如shape）可以设置为null，但RawMaterialButton的属性不允许有null，否则抛出异常。
+
+	```dart
+	// MaterialButton 扁平化，效果类似FlatButton
+	_rawMaterialButtonDemo(bool withBorder) {
+	    return RawMaterialButton(
+	        onPressed: () => _showMyDialog(),
+	        child: Text('balabala'),
+	        padding: EdgeInsets.all(10),
+	        // 填充色/背景色
+	        fillColor: Colors.blue,
+	        textStyle: TextStyle(color: Colors.white),
+	        shape: RoundedRectangleBorder(
+	            borderRadius: BorderRadius.circular(20),
+	            side: BorderSide(
+	                style: BorderStyle.solid
+	            )
+	        )
+	    );
+	}
+	```
+	> ⚠️ 以上这几种button都可以设置其padding值，但它们都有一个默认的padding。当这些button的上一层级Widget的尺寸足够容纳button，这时设置的padding值比默认值大才会生效。当button上一层级的Widget不足以展示button的默认padding时，设置较小的padding可以生效。我们可以通过在button外面包裹一层Container，并设置其alignment为center，再根据需求设置Container的宽高，就可以布局出自己想要的button样式。
+* __通过GestureDetector实现自定义样式的button__
+
+	由于上面介绍的几种button，都有一些无法改变的固定样式，这往往不能满足开发中的特定需求。除了上面说的利用Container包裹button以达到想要的样式之外，还可以通过GestureDetector来实现自定义样式的button（其实就是在自己布局的Widget基础上添加了点击手势功能）。
+	
+	```dart
+	_myButton() {
+	    return GestureDetector(
+	        onTap: () => _showMyDialog(),
+	        child: Container(
+	            width: 70,
+	            height: 28,
+	            margin: EdgeInsets.only(top: 20),
+	            decoration: BoxDecoration(
+	                borderRadius: BorderRadius.circular(11.0),
+	                border: Border.all(width: 0.5, color: Color(0xFF6BCBD7))
+	            ),
+	            child: Center(
+	                child: Text('点击刷新',
+	                    style: TextStyle(
+	                        fontSize: 13,
+	                        color: Color(0xFF6BCBD7)
+	                    ),
+	                ),
+	            ),
+	        ),
+	    );
+	}
+	```
+* __CupertinoButton__
+
+	CupertinoButton是iOS风格的button
+	
+	```dart
+	_iosButtonDemo() {
+	    return Container(
+	        margin: EdgeInsets.only(top: 15),
+	        child: CupertinoButton(
+	            child: Text(
+	                'abc',
+	                style: TextStyle(fontSize: 17, color: Colors.white),
+	            ),
+	            color: Colors.blue,
+	            minSize: 20,
+	            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+	            borderRadius: BorderRadius.circular(10),
+	            onPressed: () => _showMyDialog()
+	        )
+	    );
+	}
+	
+	// 以上所有例子中的按钮点击事件
+	_showMyDialog() {
+	    showDialog(
+	        context: context,
+	        builder: (context) {
+	            return AlertDialog(
+	                title: Text('我是title'),
+	                content: Text('我是content'),
+	                actions: <Widget>[
+	                    FlatButton(
+	                        onPressed: () {
+	                            Navigator.pop(context);
+	                        },
+	                        child: Text('确定')
+	                    ),
+	                    FlatButton(
+	                        onPressed: () {
+	                            Navigator.pop(context);
+	                        },
+	                        child: Text('取消')
+	                    )
+	                ],
+	            );
+	        }
+	    );
+	}
+	```
+<img src="https://github.com/YourMelody/yourmelody.github.io/blob/master/2019/01/05/Widget基础篇/button_clicked.gif" width="240" align=center>
