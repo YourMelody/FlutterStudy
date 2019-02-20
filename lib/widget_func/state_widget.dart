@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/*
+* 可以简单认为StatefulWidget和StatelessWidget有两点不同
+* 1、StatefulWidget可以拥有状态，这些状态在生命周期中可变，而StatelessWidget是不可变的。
+* 2、StatefulWidget至少由两个类组成：StatefulWidget类和State类。StatefulWidget类本身是
+*   不可变的，但State类中持有的状态在widget生命周期中可变。
+* */
+
 class WidgetDemo1 extends StatelessWidget {
 	final String text;
 	WidgetDemo1(this.text);

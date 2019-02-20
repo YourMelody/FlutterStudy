@@ -23,7 +23,7 @@ class ContainerDemo extends StatelessWidget {
 				height: 49,
 				margin: EdgeInsets.all(20),
 				padding: EdgeInsets.only(top: 0),
-//		    color: Colors.blueGrey,
+//		        color: Colors.blueGrey,
 
 				// 使用它就不能设置Container的color
 				decoration: BoxDecoration(

@@ -5,6 +5,8 @@ void func01() {
 	var name0 = 'zf';
 	print('name0: ${name0.runtimeType}');
 
+	// 报错，var修饰的变量在第一次初始化后进行类型推断，之后不能赋值为其他类型
+//	name0 = 1;
 
 	// dynamic/Object
 	Object name1 = 'zf';
@@ -16,10 +18,6 @@ void func01() {
 	print('name2: ${name2.runtimeType}');
 	name2 = 123;
 	print('name2: ${name2.runtimeType}');
-
-
-	// String
-	String name3 = 'zf';
 
 
 	// null
@@ -34,16 +32,7 @@ void func01() {
 		print('other $e');
 	}
 
-
-	// final/const
-//	final name4;
-//	const name5;
-
-	final String name6 = 'zf';
-	const String name7 = 'zf';
-
 	var tempList = const [];
-//	tempList = 'abc';
 	tempList = ['abc'];
 
 

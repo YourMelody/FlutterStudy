@@ -5,10 +5,10 @@ void func02() {
 //	_aboutNum();
 
 	// list
-//	_aboutList();
+	_aboutList();
 
 	// map
-	_aboutMap();
+//	_aboutMap();
 }
 
 _aboutMap() {

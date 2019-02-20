@@ -3,13 +3,13 @@
 import 'dart:async';
 
 void func06() {
-	_eventQueue();
+//	_eventQueue();
 
 //	_microTaskQueue1();
 
 //	_microTaskQueue2();
 
-//	_asyncAndAwait();
+	_asyncAndAwait();
 }
 
 _eventQueue() {
@@ -85,11 +85,11 @@ _microTaskQueue2() {
 _asyncAndAwait() async {
 	var a = await _test0();
 	print('a-type:${a.runtimeType}');
-	print('a = ${a}');
+	print('a = $a');
 
 	var b = await _test1();
 	print('b-type:${b.runtimeType}');
-	print('b = ${b}');
+	print('b = $b');
 }
 
 _test0() {

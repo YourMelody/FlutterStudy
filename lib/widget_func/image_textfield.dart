@@ -29,7 +29,7 @@ class ImageAndTextFieldDemo extends StatelessWidget {
     _imageDemo() {
 	    return Image.network(
 		    'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2527385882,2413489660&fm=26&gp=0.jpg',
-		    fit: BoxFit.contain,
+		    fit: BoxFit.contain
 	    );
     }
 
@@ -54,7 +54,8 @@ class ImageAndTextFieldDemo extends StatelessWidget {
 				filled: false,
 				hintText: 'placeholder',
 				helperText: 'helperText',
-				labelText: 'labelText'
+				labelText: 'labelText',
+				fillColor: Colors.red
 			),
 			enabled: true,
 			onEditingComplete: () {

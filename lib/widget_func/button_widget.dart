@@ -249,6 +249,12 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 								Navigator.pop(context);
 							},
 							child: Text('确定')
+						),
+						FlatButton(
+							onPressed: () {
+								Navigator.pop(context);
+							},
+							child: Text('确定aa')
 						)
 					],
 				);
