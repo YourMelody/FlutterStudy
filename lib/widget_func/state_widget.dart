@@ -22,8 +22,8 @@ class WidgetDemo1 extends StatelessWidget {
 				padding: EdgeInsets.only(top: 100),
 				child: Column(
 					children: <Widget>[
-						MyStateless(),
-						MyStateful()
+						_MyStateless(),
+						_MyStateful()
 					],
 				),
 			),
@@ -31,7 +31,7 @@ class WidgetDemo1 extends StatelessWidget {
 	}
 }
 
-class MyStateless extends StatelessWidget {
+class _MyStateless extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 	    return  Text(
@@ -41,14 +41,14 @@ class MyStateless extends StatelessWidget {
     }
 }
 
-class MyStateful extends StatefulWidget {
+class _MyStateful extends StatefulWidget {
 	@override
-	State<MyStateful> createState() {
+	State<_MyStateful> createState() {
 		return _MyStatefulState();
     }
 }
 
-class _MyStatefulState extends State<MyStateful> {
+class _MyStatefulState extends State<_MyStateful> {
 	int pressCount;
 	@override
 	void initState() {

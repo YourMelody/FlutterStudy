@@ -22,15 +22,15 @@ class MyBasic extends StatelessWidget {
 				title: (basic == ShowBasic.ShowDartBasic) ? Text('Dart') : Text('Widget')
 			),
 			body: ListView.builder(
-				itemBuilder: (context, index) => ListItem(dataList[index], index, basic),
+				itemBuilder: (context, index) => _ListItem(dataList[index], index, basic),
 				itemCount: dataList.length
 			),
 		);
     }
 }
 
-class ListItem extends StatelessWidget {
-	ListItem(this.textMap, this.curIndex, this.basic);
+class _ListItem extends StatelessWidget {
+	_ListItem(this.textMap, this.curIndex, this.basic);
 	final Map textMap;
 	final int curIndex;
 	final ShowBasic basic;

@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
-class FirstDemo extends StatelessWidget {
-	FirstDemo({Key key, this.titleStr}) : super(key: key);
-	final String titleStr;
-	@override
-	Widget build(BuildContext context) {
-		return RandomWords(title: titleStr);
-	}
-}
-
 class RandomWords extends StatefulWidget {
 	RandomWords({Key key, this.title}) : super(key: key);
 	final String title;
 	@override
-	createState() => new RandomWordsState();
+	createState() => _RandomWordsState();
 }
 
-class RandomWordsState extends State<RandomWords> {
+class _RandomWordsState extends State<RandomWords> {
 	// Dart语言中，使用下划线前缀标识符，会强制其变成私有的
 	final _suggestions = <WordPair>[];
-	final _saved = new Set<WordPair>();
-	final TextStyle _biggerFont = new TextStyle(fontSize: 18.0);
+	final _saved = Set<WordPair>();
+	final TextStyle _biggerFont = TextStyle(fontSize: 18.0);
 
 	@override
 	Widget build(BuildContext context) {
-		return new Scaffold(
-			appBar: new AppBar(
-				title: new Text(widget.title),
+		return Scaffold(
+			appBar: AppBar(
+				title: Text(widget.title),
 				actions: <Widget> [
-					new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved),
+					IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
 				],
 			),
 			body: _buildSuggestions(),
@@ -38,11 +29,11 @@ class RandomWordsState extends State<RandomWords> {
 
 	void _pushSaved() {
 		Navigator.of(context).push(
-			new MaterialPageRoute(
+			MaterialPageRoute(
 				builder: (context) {
 					final tiles = _saved.map((pair) {
-						return new ListTile(
-							title: new Text(
+						return ListTile(
+							title: Text(
 								pair.asPascalCase,
 								style:_biggerFont,
 							),
@@ -54,11 +45,11 @@ class RandomWordsState extends State<RandomWords> {
 						context: context
 					).toList();
 
-					return new Scaffold(
-						appBar: new AppBar(
-							title: new Text('Saved Suggestions'),
+					return Scaffold(
+						appBar: AppBar(
+							title: Text('Saved Suggestions'),
 						),
-						body: new ListView(children: divided)
+						body: ListView(children: divided)
 					);
 				}
 			)
@@ -66,14 +57,14 @@ class RandomWordsState extends State<RandomWords> {
 	}
 
 	Widget _buildSuggestions() {
-		return new ListView.builder(
+		return ListView.builder(
 			padding: const EdgeInsets.all(16.0),
 			// 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
 			// 在偶数行，为单词对添加一个ListTile row.
 			// 在奇数行，添加一个分割线
 			itemBuilder: (context, i) {
 				// 在每一行之前，添加一个1像素高的分割线
-				if (i.isOdd) return new Divider();
+				if (i.isOdd) return Divider();
 
 				// 语法 "i ~/ 2" 表示i除以2，但返回值是整形（向下取整），比如i为：1, 2, 3, 4, 5，
 				// 结果为0, 1, 1, 2, 2， 这可以计算出ListView中减去分隔线后的实际单词对数量
@@ -90,12 +81,12 @@ class RandomWordsState extends State<RandomWords> {
 
 	Widget _buildRow(WordPair pair) {
 		final alreadySaved = _saved.contains(pair);
-		return new ListTile (
-			title: new Text (
+		return ListTile (
+			title: Text (
 				pair.asPascalCase,
 				style: _biggerFont,
 			),
-			trailing: new Icon(
+			trailing: Icon(
 				alreadySaved ? Icons.favorite : Icons.favorite_border,
 				color: alreadySaved ? Colors.red : null,
 			),

@@ -19,7 +19,7 @@ class HomeDemoWidget extends StatelessWidget {
 			),
 			body: ListView.builder(
 				itemBuilder: (context, index) {
-					return DemoItem(curIndex: index);
+					return _DemoItem(curIndex: index);
 				},
 				itemCount: 20,
 			),
@@ -27,8 +27,8 @@ class HomeDemoWidget extends StatelessWidget {
 	}
 }
 
-class DemoItem extends StatelessWidget {
-	DemoItem({Key key, this.curIndex}) : super(key: key);
+class _DemoItem extends StatelessWidget {
+	_DemoItem({Key key, this.curIndex}) : super(key: key);
 	final int curIndex;
 	@override
 	Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class DemoItem extends StatelessWidget {
 				break;
 			case 1:
 				Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-					return FirstDemo(titleStr: '无限列表');
+					return RandomWords(title: '无限列表');
 				}));
 				break;
 		}

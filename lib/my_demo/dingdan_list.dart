@@ -27,9 +27,9 @@ class DingDanDemo extends StatelessWidget {
 				itemBuilder: (context, index) {
 					if (index == 0) {
 						// 列表头部
-						return ItemHeader();
+						return _ItemHeader();
 					} else {
-						return InformationItem(index-1, dataSource[index-1], dataSource.length-1);
+						return _InformationItem(index-1, dataSource[index-1], dataSource.length-1);
 					}
 				},
 				itemCount: this.dataSource.length+1,
@@ -40,7 +40,7 @@ class DingDanDemo extends StatelessWidget {
 }
 
 // 列表头部
-class ItemHeader extends StatelessWidget {
+class _ItemHeader extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return Container(
@@ -76,11 +76,11 @@ class ItemHeader extends StatelessWidget {
 	}
 }
 
-class InformationItem extends StatelessWidget {
+class _InformationItem extends StatelessWidget {
 	final int currentIndex;
 	final infoDic;
 	final int lastIndex;
-	InformationItem(this.currentIndex, this.infoDic, this.lastIndex);
+	_InformationItem(this.currentIndex, this.infoDic, this.lastIndex);
 
 	@override
 	Widget build(BuildContext context) {
