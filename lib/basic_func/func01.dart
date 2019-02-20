@@ -32,12 +32,12 @@ void func01() {
 		print('other $e');
 	}
 
-	var tempList = const [];
-	tempList = ['abc'];
+//	var tempList = const [];
+//	tempList = ['abc'];
 
 
 	const String tempName0 = 'a';
-	final String tempName1 = 'a';
+//	final String tempName1 = 'a';
 	const String tempName2 = 'a';
 	const aConstList = const ['1', '2'];
 
@@ -48,6 +48,9 @@ void func01() {
 
 	// 报错：In constant expressions, operands of this operator must be of type 'bool', 'num', 'String' or 'null'
 //	const validConstString2 = '$tempName0 $tempName2 $aConstList';
+
 	//正确写法
 	var validConstString3 = '$tempName0 $tempName2 $aConstList';
+
+	print('str1 = $validConstString1, str2 = $validConstString3');
 }

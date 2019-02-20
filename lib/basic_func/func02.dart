@@ -2,13 +2,13 @@
 // 数据类型
 void func02() {
 	// num
-//	_aboutNum();
+	_aboutNum();
 
 	// list
 	_aboutList();
 
 	// map
-//	_aboutMap();
+	_aboutMap();
 }
 
 _aboutMap() {

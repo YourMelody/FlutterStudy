@@ -3,11 +3,11 @@
 import 'dart:async';
 
 void func06() {
-//	_eventQueue();
+	_eventQueue();
 
-//	_microTaskQueue1();
+	_microTaskQueue1();
 
-//	_microTaskQueue2();
+	_microTaskQueue2();
 
 	_asyncAndAwait();
 }

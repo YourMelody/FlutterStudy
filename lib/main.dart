@@ -23,6 +23,7 @@
  * */
 
 
+
 /**
  * Flutter使用配置文件pubspec.yaml来管理第三方依赖包，该配置文件中各个字段的含义：
  * 1、name：应用或包名称
@@ -30,7 +31,37 @@
  * 3、version：应用或包的版本号
  * 4、dependencies：应用或包依赖的其它包或插件
  * 5、dev_dependencies：开发环境依赖的工具包（不是flutter应用本身依赖的包）
- * 6、flutter：flutter相关的配置选项
+ * 6、flutter：flutter相关的配置选项，该处可配置资源文件
+ */
+
+
+
+/**
+ * 调试相关：
+ * debugPaintSizeEnabled = true;将以可视方式调试布局问题（package:flutter/rendering.dart 库中的bool值）。
+ * 它可以在任何时候启用，最简单的方法视在 void main() 的顶部设置。
+ * 启用之后，所有盒子 --- 深青色边框；
+ *          padding --- 浅蓝色
+ *          子widget --- 深蓝色框
+ *          对齐方式 --- 黄色箭头
+ *          空白 --- 灰色
+ *
+ *
+ * debugPaintBaselinesEnabled:与上面类似，但对于具有基线的对象，文字基线以绿色显示，表意(ideographic)基线以橙色显示
+ *
+ *
+ * debugPaintPointersEnabled:任何正在点击的对象都会以深青色突出显示（可用于hit测试）
+ *
+ *
+ * 动画调试：最简单方法是减慢动画速度。可以将scheduler库中的timeDilation变量设置为大于1.0的数字
+ *
+ *
+ * 衡量应用启动时间：flutter run --trace-startup --profile
+ *      跟踪输出保存为start_up_info.json，在Flutter工程目录的build目录下，记录了从程序启动到这些跟踪时间所用的时间（微秒）：
+ *      1、进入Flutter引擎时
+ *      2、展示应用第一帧时
+ *      3、初始化Flutter框架时
+ *      4、完成Flutter框架初始化时
  */
 
 
@@ -42,12 +73,16 @@ import 'widget_func/column_row.dart';
 import 'package:flutter_app/my_demo/tabbar_widget.dart';
 import 'widget_func/image_textfield.dart';
 import 'widget_func/button_widget.dart';
+import 'package:flutter/rendering.dart';
 
 // 计时器示例
 import 'my_demo/01_jishuqi.dart';
 
 // 应用入口
 void main() {
+	// 打开可视布局调试
+//	debugPaintSizeEnabled = true;
+
 	// runApp该方法作用是启动Flutter应用，它接收一个Widget参数
 	runApp(MaterialApp(
 		home: MyTabBarWidget(),

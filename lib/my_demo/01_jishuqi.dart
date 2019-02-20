@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 /*
 * MaterialPageRoute继承自PageRoute类，PageRoute类是个抽象类，表示占有整个屏幕空间的一个模态路由页面，
@@ -27,6 +28,16 @@ import 'package:flutter/material.dart';
 *   将栈顶路由出栈，result为返回给上个页面的数据
 * */
 
+
+/* *
+ * 加载文本assets
+ * 1、直接使用package:flutter/services.dart中全局静态的rootBundle对象来加载asset
+ * 2、建议使用 DefaultAssetBundle 来获取当前BuildContext的AssetBundle来加载。这种方式是使用父级Widget
+ *  在运行时动态替换的不同的AssetBundle。
+ * 通常，可以使用DefaultAssetBundle.of()在应用运行时来间接加载asset（例如JSON文件），而在widget上下文之外，
+ * 或其它AssetBundle句柄不可用时，可以使用rootBundle直接加载这些asset
+ */
+
 class JiShuQi extends StatefulWidget {
 	JiShuQi({Key key, this.title}) : super(key: key);
 	final String title;
@@ -37,6 +48,13 @@ class JiShuQi extends StatefulWidget {
 
 class _JiShuQiState extends State<JiShuQi> {
 	int _counter = 0;
+	String localStr;
+	@override
+	void initState() {
+		super.initState();
+		localStr = '';
+		loadAsset();
+	}
 
 	void _incrementCounter() {
 		setState(() {
@@ -50,6 +68,14 @@ class _JiShuQiState extends State<JiShuQi> {
 		print('dispose~~~');
 	}
 
+	void loadAsset() async {
+		// 加载本地文本资源文件
+		String str = await rootBundle.loadString('lib/images/local.json');
+		setState(() {
+			localStr = str;
+		});
+	}
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -60,11 +86,19 @@ class _JiShuQiState extends State<JiShuQi> {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: <Widget>[
-						Text('You have pushed the button this many times'),
+						Image.asset(
+							'lib/images/my_icon.png',
+							width: 100,
+							height: 100
+						),
+						Padding(padding: EdgeInsets.only(top: 20)),
+						Text('$localStr'),
+						Padding(padding: EdgeInsets.only(top: 20)),
 						Text(
 							'$_counter',
 							style: Theme.of(context).textTheme.display1,
 						),
+						Padding(padding: EdgeInsets.only(top: 20)),
 						FlatButton(
 							onPressed: () {
 								Navigator.push(context, MaterialPageRoute(
