@@ -1,30 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class ImageAndTextFieldDemo extends StatelessWidget {
+class ImageAndTextFieldDemo extends StatefulWidget {
+	@override
+	_ImageAndTextFieldDemoState createState() => _ImageAndTextFieldDemoState();
+}
+
+class _ImageAndTextFieldDemoState extends State<ImageAndTextFieldDemo> {
+	// 利用FocusNode和FocusScopeNode来管理文本输入框的焦点
+	FocusNode focusNode1 = FocusNode();
+	FocusNode focusNode2 = FocusNode();
+	FocusScopeNode focusScopeNode;
+
+	@override
+	void initState() {
+		super.initState();
+		// 监听焦点变化
+		focusNode1.addListener(() {
+			print(focusNode1.hasFocus);
+		});
+	}
+
 	@override
 	Widget build(BuildContext context) {
         return Scaffold(
 	        appBar: AppBar(
 		        title: Text('Image'),
 	        ),
-	        body: Padding(
-		        padding: EdgeInsets.all(50),
-		        child: Container(
-			        alignment: Alignment.center,
-			        child: Column(
-				        children: <Widget>[
+	        body: Container(
+		        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+		        alignment: Alignment.center,
+		        child: Column(
+			        children: <Widget>[
+			        	// 网络图片/本地图片
+				        Row(children: <Widget>[
 					        _netImageDemo(),
-					        Padding(padding: EdgeInsets.only(top: 20)),
+					        Padding(padding: EdgeInsets.only(right: 20)),
 					        _localImageDemo(),
-					        Padding(padding: EdgeInsets.only(top: 20)),
-					        _textFieldDemo0(),
-					        Padding(padding: EdgeInsets.only(top: 40)),
-					        _textFieldDemo1()
-				        ],
-			        )
-		        ),
-	        ),
+				        ], mainAxisAlignment: MainAxisAlignment.center),
+
+				        // 两种风格的textfield
+				        Padding(padding: EdgeInsets.only(top: 20)),
+				        _textFieldDemo0(),
+				        Padding(padding: EdgeInsets.only(top: 20)),
+				        _textFieldDemo1(),
+				        Padding(padding: EdgeInsets.only(top: 20)),
+
+				        // 控制textfield焦点的两个button
+				        Row(children: <Widget>[
+				        	RaisedButton(
+						        onPressed: () {
+						        	if (null == focusScopeNode) {
+						        		focusScopeNode = FocusScope.of(context);
+							        }
+
+							        // 获取焦点hasFocus为true
+							        if (focusNode1.hasFocus) {
+						        		focusScopeNode.requestFocus(focusNode2);
+							        } else if (focusNode2.hasFocus) {
+								        focusScopeNode.requestFocus(focusNode1);
+							        }
+					            },
+						        child: Text('移动焦点')
+					        ),
+					        Padding(padding: EdgeInsets.only(right: 20)),
+					        RaisedButton(
+						        onPressed: () {
+						        	focusNode1.unfocus();
+						        	focusNode2.unfocus();
+						        },
+						        child: Text('失去焦点')
+					        ),
+				        ],mainAxisAlignment: MainAxisAlignment.center)
+			        ],
+		        )
+	        )
         );
     }
 
@@ -45,11 +95,9 @@ class ImageAndTextFieldDemo extends StatelessWidget {
 	 * repeat: 当图片本身小于显示空间，指定图片的重复规则
 	 */
 
-
     // 加载网路图片
     _netImageDemo() {
 		// 下面这两种写法效果一样
-
 //	    return Image.network(
 //		    'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2527385882,2413489660&fm=26&gp=0.jpg',
 //		    fit: BoxFit.contain,
@@ -77,6 +125,9 @@ class ImageAndTextFieldDemo extends StatelessWidget {
 	}
 
 
+
+
+
     _textFieldDemo0() {
 		return TextField(
 			maxLength: 30,
@@ -99,12 +150,14 @@ class ImageAndTextFieldDemo extends StatelessWidget {
 				hintText: 'placeholder',
 				helperText: 'helperText',
 				labelText: 'labelText',
-				fillColor: Colors.red
+				fillColor: Colors.red,
 			),
 			enabled: true,
+			// 在onSubmitted之前调用。实现该方法后，点键盘return输入框不会失去焦点
 			onEditingComplete: () {
 				print('TextField:complete');
-			}
+			},
+			focusNode: focusNode1,
 		);
     }
 
@@ -138,7 +191,8 @@ class ImageAndTextFieldDemo extends StatelessWidget {
 			// 在onSubmitted之前调用。实现了该方法后，按return不会让textField失去焦点
 			onEditingComplete: () {
 				print('CupertinoTextField:complete');
-			}
+			},
+			focusNode: focusNode2,
 		);
     }
 }

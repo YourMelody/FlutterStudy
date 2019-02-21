@@ -112,6 +112,10 @@ class _ListItem extends StatelessWidget {
 		    	// Button
 			    Navigator.of(context).pushNamed('/button_widget');
 			    break;
+		    case 5:
+		        // Switch/Checkbox
+			    Navigator.of(context).pushNamed('/switch_checkbox');
+			    break;
 	    }
     }
 }

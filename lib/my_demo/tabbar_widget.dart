@@ -26,7 +26,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 		{'title': 'Container & Text & TextSpan', 'desc': ''},
 		{'title': 'Image & TextField', 'desc': '图片和输入框的基本使用'},
 		{'title': 'Column/Row/Expended', 'desc': '水平布局和竖直布局使用'},
-		{'title': 'Button', 'desc': 'RaisedButton & FlatButton & OutlineButton等等'}
+		{'title': 'Button', 'desc': 'RaisedButton & FlatButton & OutlineButton等等'},
+		{'title': 'Switch & Checkbox & Form', 'desc': '单选开关、复选框及表单的使用'}
 	];
 	@override
 	void initState() {

@@ -81,6 +81,7 @@ import 'widget_func/column_row.dart';
 import 'package:flutter_app/my_demo/tabbar_widget.dart';
 import 'widget_func/image_textfield.dart';
 import 'widget_func/button_widget.dart';
+import 'widget_func/switch_checkbox.dart';
 //import 'package:flutter/rendering.dart';
 
 // 计时器示例
@@ -114,6 +115,7 @@ void main() {
 			'/image_textfield': (_) => ImageAndTextFieldDemo(),
 			'/column_row': (_) => ColumnAndRow(),
 			'/button_widget': (_) => MyButtonDemo(),
+			'/switch_checkbox': (_) => MySwitchAndCheckbox(),
 			'/jishuqi_demo': (_) => JiShuQi(title: '计数器示例'),
 			'/manage_state': (_) => ManageState(),
 		},
