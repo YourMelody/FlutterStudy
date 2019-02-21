@@ -47,7 +47,10 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 				        _myButton2(),
 
 				        // iOS风格的button
-				        _iosButtonDemo()
+				        _iosButtonDemo(),
+
+				        // IconButton
+				        _iconButton()
 			        ]))
 		        ],
 	        ),
@@ -59,7 +62,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
         );
     }
 
-    // RaisedButton 凸起效果
+    // RaisedButton 凸起效果，默认带有阴影和灰色背景
     _raisedButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
@@ -85,7 +88,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 		);
     }
 
-    // FlatButton 扁平化
+    // FlatButton 扁平化，默认背景透明，没有阴影
 	_flatButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
@@ -109,7 +112,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 		);
 	}
 
-	// OutlineButton 扁平化，没有背景色，有边框
+	// OutlineButton 扁平化，背景透明，有边框
 	_outlineButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
@@ -133,7 +136,8 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 		);
 	}
 
-	// MaterialButton 扁平化，效果类似FlatButton
+	// MaterialButton 扁平化，效果类似FlatButton。
+	// ⚠️ RaisedButton、FlatButton、OutlineButton都是直接或间接对RawMaterialButton的包装定制
 	_rawMaterialButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
@@ -227,6 +231,17 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 				minSize: 20,
 				onPressed: () => _showMyIOSDialog()
 			)
+		);
+	}
+
+	// IconButton，不包含文字，默认没有背景，点击后出现背景
+	_iconButton() {
+		return Container(
+			margin: EdgeInsets.only(top: 20),
+			child: IconButton(
+				icon: Icon(Icons.thumb_up),
+				onPressed: () => _showMyIOSDialog()
+			),
 		);
 	}
 

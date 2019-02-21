@@ -23,7 +23,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 
 	final List<Map> widgetList = [
 		{'title': 'StateWidget', 'desc': 'StatelessWidget & StatefulWidget'},
-		{'title': 'Container & Text', 'desc': ''},
+		{'title': 'Container & Text & TextSpan', 'desc': ''},
 		{'title': 'Image & TextField', 'desc': '图片和输入框的基本使用'},
 		{'title': 'Column/Row/Expended', 'desc': '水平布局和竖直布局使用'},
 		{'title': 'Button', 'desc': 'RaisedButton & FlatButton & OutlineButton等等'}
