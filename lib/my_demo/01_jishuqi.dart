@@ -49,23 +49,71 @@ class JiShuQi extends StatefulWidget {
 class _JiShuQiState extends State<JiShuQi> {
 	int _counter = 0;
 	String localStr;
+
+	/* *
+	 * 当Widget第一次插入到Widget树时被调用；对于每一个State对象，该方法只会执行一次。通常在该方法中进行
+	 * 状态初始化、订阅子树的事件通知等。
+	 * ⚠️：不能在该方法中调用 BuildContext.inheritFromWidgetOfExactType （该方法用于在Widget树上获取离当前
+	 * widget最近的一个父级InheritFromWidget），因为在初始化完成后，Widget树中 InheritFromWidget 也可能会
+	 * 发生变化，所以应该在 build() 或 didChangeDependencies()中调用。
+	 */
 	@override
 	void initState() {
 		super.initState();
 		localStr = '';
 		loadAsset();
+		print('initState');
 	}
 
-	void _incrementCounter() {
-		setState(() {
-			_counter++;
-		});
+
+	/* *
+	 * 在Widget重新构建时，Flutter framework会调用Widget.canUpdate 来检测Widget是否需要更新。当新旧widget的key和runtimeType同时相等，
+	 * 就会用新widget更新Element对象的配置，这时Widget.canUpdate返回true，该方法会被调用；否则会创建新Element对象，Widget.canUpdate返回false。
+	 */
+	@override
+	void didUpdateWidget(JiShuQi oldWidget) {
+		super.didUpdateWidget(oldWidget);
+		print('didUpdateWidget');
 	}
 
+
+	/* *
+	 * 当State对象从树中移除时会调用。如果移除后没有重新插入到输入，则紧接着会调用dispose()方法
+	 */
+	@override
+	void deactivate() {
+		super.deactivate();
+		print('deactivate');
+	}
+
+
+	/* *
+	 * 当State对象从树中被永久移除时调用。
+	 */
 	@override
 	void dispose() {
 		super.dispose();
 		print('dispose~~~');
+	}
+
+
+	/* *
+	 * 在hot reload时会被调用；在release模式下无效
+	 */
+	@override
+	void reassemble() {
+		super.reassemble();
+		print('reassemble');
+	}
+
+
+	/* *
+	 * 当State对象的依赖发生变化时会被调用。
+	 */
+    @override
+	void didChangeDependencies() {
+		super.didChangeDependencies();
+		print('didChangeDependencies');
 	}
 
 	void loadAsset() async {
@@ -76,8 +124,14 @@ class _JiShuQiState extends State<JiShuQi> {
 		});
 	}
 
+
+	/* *
+	 * 在initState()、didUpdateWidget()、setState()、didChangeDependencies()之后都会调用；
+	 * 在State对象从树中一个位置移除后（调用deactivate）又重新插入到树的其它位置之后也会调用
+	 */
 	@override
 	Widget build(BuildContext context) {
+		print('build');
 		return Scaffold(
 			appBar: AppBar(
 				title: Text('计数器示例'),
@@ -119,7 +173,7 @@ class _JiShuQiState extends State<JiShuQi> {
 				),
 			),
 			floatingActionButton: FloatingActionButton(
-				onPressed: _incrementCounter,
+				onPressed: () => setState(() => ++_counter),
 				tooltip: 'Increment',
 				child: Icon(Icons.add),
 			),

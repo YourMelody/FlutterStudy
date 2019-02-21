@@ -84,10 +84,14 @@ class _DemoItem extends StatelessWidget {
 				Navigator.of(context).pushNamed('/jishuqi_demo');
 				break;
 			case 1:
+				Navigator.of(context).pushNamed('/manage_state');
+				break;
+			case 2:
 				Navigator.of(context).push(MaterialPageRoute(builder: (_) {
 					return RandomWords(title: '无限列表');
 				}));
 				break;
+
 		}
 	}
 

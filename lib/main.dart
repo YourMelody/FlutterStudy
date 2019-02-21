@@ -62,6 +62,14 @@
  *      2、展示应用第一帧时
  *      3、初始化Flutter框架时
  *      4、完成Flutter框架初始化时
+ *
+ *
+ *
+ * 要获取应用程序的性能图，将MaterialApp构造函数的showPerformanceOverlay设置为true；
+ * 这将在屏幕上产生两个图标，分别是GPU和CPU线程花费的时间（⚠️：该功能应该始终在release模式下测试）
+ *
+ *
+ * 将MaterialApp构造函数的debugShowMaterialGrid设置为true，会将基线网格覆盖在应用上，以方便验证对齐
  */
 
 
@@ -73,10 +81,13 @@ import 'widget_func/column_row.dart';
 import 'package:flutter_app/my_demo/tabbar_widget.dart';
 import 'widget_func/image_textfield.dart';
 import 'widget_func/button_widget.dart';
-import 'package:flutter/rendering.dart';
+//import 'package:flutter/rendering.dart';
 
 // 计时器示例
 import 'my_demo/01_jishuqi.dart';
+
+// 状态管理示例
+import 'my_demo/02_manage_state.dart';
 
 // 应用入口
 void main() {
@@ -88,6 +99,13 @@ void main() {
 		home: MyTabBarWidget(),
 		// 隐藏顶部状态栏的debug样式
 		debugShowCheckedModeBanner: false,
+
+		//GPU/CPU图谱，性能测试，release模式使用
+//		showPerformanceOverlay: true,
+
+		// 在应用上覆盖基线网格，方便对齐验证
+//		debugShowMaterialGrid: true,
+
 		theme: ThemeData(primarySwatch: Colors.blue),
 		// 这里定义静态路由，只能在注册路由的时候传递参数，可以在手动调用pop的时候返回参数
 		routes: <String, WidgetBuilder> {
@@ -97,6 +115,7 @@ void main() {
 			'/column_row': (_) => ColumnAndRow(),
 			'/button_widget': (_) => MyButtonDemo(),
 			'/jishuqi_demo': (_) => JiShuQi(title: '计数器示例'),
+			'/manage_state': (_) => ManageState(),
 		},
 	));
 }
