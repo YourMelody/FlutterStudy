@@ -78,11 +78,13 @@ import 'package:flutter/material.dart';
 import 'widget_func/state_widget.dart';
 import 'widget_func/container_widget.dart';
 import 'widget_func/column_row.dart';
-import 'package:flutter_app/my_demo/tabbar_widget.dart';
+import 'my_demo/tabbar_widget.dart';
 import 'widget_func/image_textfield.dart';
 import 'widget_func/button_widget.dart';
 import 'widget_func/switch_checkbox.dart';
 import 'widget_func/wrap_flow.dart';
+import 'widget_func/constrained_sized.dart';
+import 'widget_func/decorated_transform.dart';
 //import 'package:flutter/rendering.dart';
 
 // 计时器示例
@@ -119,7 +121,9 @@ void main() {
 			'/switch_checkbox': (_) => MySwitchAndCheckbox(),
 			'/jishuqi_demo': (_) => JiShuQi(title: '计数器示例'),
 			'/manage_state': (_) => ManageState(),
-			'/wrap_flow': (_) => MyWrapAndFlow()
+			'/wrap_flow': (_) => MyWrapAndFlow(),
+			'/constrained_sized': (_) => MyConstrainedAndSized(),
+			'/decorated_transform': (_) => DecoratedAndTransform()
 		},
 	));
 }

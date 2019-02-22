@@ -118,7 +118,7 @@ class _MySwitchAndCheckboxState extends State<MySwitchAndCheckbox> {
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: <Widget>[
 						TextFormField(
-							autofocus: true,
+							autofocus: false,
 							controller: _nameController,
 							decoration: InputDecoration(
 								labelText: '用户名',
@@ -133,7 +133,7 @@ class _MySwitchAndCheckboxState extends State<MySwitchAndCheckbox> {
 						),
 
 						TextFormField(
-							autofocus: true,
+							autofocus: false,
 							controller: _pwdController,
 							obscureText: true,
 							decoration: InputDecoration(

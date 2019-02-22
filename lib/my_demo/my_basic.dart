@@ -120,6 +120,12 @@ class _ListItem extends StatelessWidget {
 		        // Wrap Flow Stack Positioned
 			    Navigator.of(context).pushNamed('/wrap_flow');
 			    break;
+		    case 7:
+			    Navigator.of(context).pushNamed('/constrained_sized');
+			    break;
+		    case 8:
+			    Navigator.of(context).pushNamed('/decorated_transform');
+			    break;
 	    }
     }
 }
