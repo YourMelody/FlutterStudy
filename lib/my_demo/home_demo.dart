@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
 import 'unlimated_list.dart';
-import 'dingdan_list.dart';
 
 class HomeDemoWidget extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(
-			backgroundColor: Colors.blue,
-			appBar: AppBar(
-				title: Text("Demo"),
-				actions: <Widget>[
-					IconButton(icon: Icon(Icons.list), onPressed: () {
-						Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-							return DingDanDemo();
-						}));
-					})
-				],
-			),
-			body: ListView.builder(
-				itemBuilder: (context, index) {
-					return _DemoItem(curIndex: index);
-				},
-				itemCount: 20,
-			),
+		return ListView.builder(
+			itemBuilder: (context, index) {
+				return _DemoItem(curIndex: index);
+			},
+			itemCount: 20,
 		);
 	}
 }

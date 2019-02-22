@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_demo.dart';
 import 'my_basic.dart';
+import 'dingdan_list.dart';
 
 class MyTabBarWidget extends StatefulWidget {
 	@override
@@ -11,6 +12,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 	int _curIndex = 0;
 
 	List<Widget> _widget = List();
+	List<String> _titles;
 
 	final List<Map> dartList = [
 		{'title': '常量和变量', 'desc': '常量/变量的基本用法'},
@@ -32,6 +34,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 		{'title': 'ConstrainedBox & SizedBox', 'desc': ''},
 		{'title': 'DecoratedBox & Transform', 'desc': '装饰容器DecoratedBox和变换Transform'}
 	];
+
 	@override
 	void initState() {
 		super.initState();
@@ -39,6 +42,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 			..add(MyBasic(dataList: dartList, basic: ShowBasic.ShowDartBasic))
 			..add(MyBasic(dataList: widgetList, basic: ShowBasic.ShowWidgetBasic))
 			..add(HomeDemoWidget());
+
+		_titles = ['Dart', 'Widget', 'Demo'];
+
 	}
 
 	@override
@@ -47,21 +53,15 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 			bottomNavigationBar: BottomNavigationBar(
 				items: [
 					BottomNavigationBarItem(
-						icon: Icon(
-							Icons.home
-						),
+						icon: Icon(Icons.home),
 						title: Text('Dart')
 					),
 					BottomNavigationBarItem(
-						icon: Icon(
-							Icons.book
-						),
+						icon: Icon(Icons.book),
 						title: Text('Widget')
 					),
 					BottomNavigationBarItem(
-						icon: Icon(
-							Icons.directions_bike
-						),
+						icon: Icon(Icons.directions_bike),
 						title: Text('Demo')
 					)
 				],
@@ -73,7 +73,18 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 				},
 				type: BottomNavigationBarType.fixed
 			),
-			body: _widget[_curIndex]
+			body: _widget[_curIndex],
+
+			appBar: AppBar(
+				title: Text(_titles[_curIndex]),
+				actions: _curIndex == 2 ? <Widget>[
+					IconButton(icon: Icon(Icons.list), onPressed: () {
+						Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+							return DingDanDemo();
+						}));
+					})
+				] : null
+			),
 		);
 	}
 }

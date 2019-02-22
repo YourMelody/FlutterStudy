@@ -17,14 +17,9 @@ class MyBasic extends StatelessWidget {
 	MyBasic({Key key, this.dataList, this.basic}) : super(key: key);
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(
-			appBar: AppBar(
-				title: (basic == ShowBasic.ShowDartBasic) ? Text('Dart') : Text('Widget')
-			),
-			body: ListView.builder(
-				itemBuilder: (context, index) => _ListItem(dataList[index], index, basic),
-				itemCount: dataList.length
-			),
+		return ListView.builder(
+			itemBuilder: (context, index) => _ListItem(dataList[index], index, basic),
+			itemCount: dataList.length
 		);
     }
 }
