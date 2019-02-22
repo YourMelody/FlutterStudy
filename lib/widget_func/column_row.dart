@@ -10,8 +10,14 @@ class ColumnAndRow extends StatelessWidget {
 			),
 			body: Column(
 				children: <Widget>[
+					// row
 					_child1(),
-					_child2()
+
+					// column
+					_child2(),
+
+					// Column嵌套Column
+					_child3()
 				]
 			),
 		);
@@ -19,7 +25,6 @@ class ColumnAndRow extends StatelessWidget {
 
 	_child1() {
 		return Expanded(
-			flex: 1,
 			child: Row(
 				// 子Widget的布局顺序（ltr: 从左至右）
 				textDirection: TextDirection.ltr,
@@ -58,7 +63,6 @@ class ColumnAndRow extends StatelessWidget {
 
 	_child2() {
 		return Expanded(
-			flex: 2,
 			child: Column(
 				children: <Widget>[
 					Expanded(child: Container(
@@ -75,6 +79,35 @@ class ColumnAndRow extends StatelessWidget {
 					))
 				],
 			)
+		);
+	}
+
+
+	// ⚠️：如果Row里面嵌套Row，或者Column里面嵌套Column，则只有最外层的Row或Column会占用尽可能大的空间
+	// 里面Row或Column所占用的空间为实际大小。如果想让内部Row或Column占满，可以配合Expanded使用
+	_child3() {
+		return Expanded(
+			flex: 2,
+			child: Container(
+				color: Colors.green,
+				padding: EdgeInsets.all(10),
+				child: Column(
+					mainAxisSize: MainAxisSize.max, // 外层Column，高度尽可能大（这里为屏幕的1/2）
+					crossAxisAlignment: CrossAxisAlignment.start,
+					children: <Widget>[
+						Container(
+							color: Colors.blue,
+							child: Column(
+								mainAxisSize: MainAxisSize.max, // 内层Column为实际大小（即内层Column所有子widgets的高度总和）
+								children: <Widget>[
+									Text('Hello'),
+									Text(' world!')
+								],
+							),
+						)
+					],
+				),
+			),
 		);
 	}
 }
