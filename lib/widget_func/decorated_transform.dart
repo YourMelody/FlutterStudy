@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
-class DecoratedAndTransform extends StatefulWidget {
-	@override
-	_DecoratedAndTransformState createState() => _DecoratedAndTransformState();
-}
-
-class _DecoratedAndTransformState extends State<DecoratedAndTransform> {
+class DecoratedAndTransform extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -17,7 +13,19 @@ class _DecoratedAndTransformState extends State<DecoratedAndTransform> {
 						_getDecoratedBox(),
 
 						Padding(padding: EdgeInsets.only(bottom: 80)),
-						_getTransform()
+						_getTransform(),
+
+						Padding(padding: EdgeInsets.only(bottom: 40)),
+						_getTranslate(),
+
+						Padding(padding: EdgeInsets.only(bottom:60)),
+						_getRotate(),
+
+						Padding(padding: EdgeInsets.only(bottom:50)),
+						_getScale(),
+
+						Padding(padding: EdgeInsets.only(bottom:20)),
+						_getRotatedBox()
 					],
 				),
 			),
@@ -57,6 +65,7 @@ class _DecoratedAndTransformState extends State<DecoratedAndTransform> {
 		);
 	}
 
+	// 倾斜
 	_getTransform() {
 		return Container(
 			color: Colors.black,
@@ -69,6 +78,69 @@ class _DecoratedAndTransformState extends State<DecoratedAndTransform> {
 					child: Text('Flutter真有意思')
 				),
 			),
+		);
+	}
+
+	// 平移
+	_getTranslate() {
+		return DecoratedBox(
+			decoration: BoxDecoration(color: Colors.red),
+			child: Transform.translate(
+				offset: Offset(-20.0, -10.0),
+				child: Text('Hello, world!')
+			)
+		);
+	}
+
+	// 旋转
+	_getRotate() {
+		return DecoratedBox(
+			decoration: BoxDecoration(color: Colors.red),
+			child: Transform.rotate(
+				angle: math.pi / 2,
+				child: Text('Hello, world!')
+			),
+		);
+	}
+
+	/* *
+	 * 注意：Transform的变换是应用在绘制阶段，并不是应用在布局阶段。所以无论对子widget应用何种变化，
+	 * 其占有空间大小和在屏幕上位置固定不变。
+	 */
+
+	// 缩放
+	_getScale() {
+		return Row(
+			mainAxisAlignment: MainAxisAlignment.center,
+			children: <Widget>[
+				DecoratedBox(
+					decoration: BoxDecoration(color: Colors.red),
+					child: Transform.scale(
+						scale: 1.5,
+						child: Text('Hello, world!')
+					),
+				),
+
+				Text('你好啊', style: TextStyle(color: Colors.red, fontSize: 20))
+			],
+		);
+	}
+
+	// RotatedBox功能和Transform.rotate相似，最大的不同是，RotatedBox的变换是在布局阶段，会影响子widget的位置和大小
+	_getRotatedBox() {
+		return Row(
+			mainAxisAlignment: MainAxisAlignment.center,
+			children: <Widget>[
+				DecoratedBox(
+					decoration: BoxDecoration(color: Colors.red),
+					child: RotatedBox(
+						quarterTurns: 1, //旋转90度
+						child: Text('Hello, world!')
+					),
+				),
+
+				Text('你好啊', style: TextStyle(color: Colors.red, fontSize: 20))
+			],
 		);
 	}
 }

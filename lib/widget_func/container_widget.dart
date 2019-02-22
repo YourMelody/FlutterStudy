@@ -111,30 +111,48 @@ class ContainerDemo extends StatelessWidget {
     }
 
 
-
-    Widget _getMyContainer() {
+	/* *
+	 * Container是DecoratedBox、ConstrainedBox、Transform、Padding、Align等widget的一个组合widget
+	 */
+	Widget _getMyContainer() {
 		return Container(
 			alignment: Alignment.center,
-			child: _getMyText(),
+			constraints: BoxConstraints(
+				minWidth: 100,
+				minHeight: 100
+			),
+
 			height: 49,
-			margin: EdgeInsets.all(20),
-			padding: EdgeInsets.only(top: 10),
+			margin: EdgeInsets.fromLTRB(40.0, 60.0, 40.0, 0),
 //		        color: Colors.blueGrey,
 			// 使用它就不能设置Container的color
 			decoration: BoxDecoration(
-				// 圆角
-				borderRadius: BorderRadius.only(
+				borderRadius: BorderRadius.only( // 圆角
 					topLeft: Radius.circular(10),
 					bottomRight: Radius.circular(10)
 				),
-				// 背景色
-				color: Colors.blue,
-				// 边框
-				border: Border.all(
+
+				border: Border.all( // 边框
 					color: Color(0xFF000000),
-					width: 1
+					width: 3
+				),
+
+				boxShadow: [ // 阴影效果
+					BoxShadow(
+						color: Colors.black54,
+						offset: Offset(2.0, 2.0),
+						blurRadius: 4.0
+					)
+				],
+
+				gradient: RadialGradient( // 背景径向渐变
+					colors: [Colors.red, Colors.orange],
+					center: Alignment.topLeft,
+					radius: .98
 				)
 			),
+			transform: Matrix4.rotationZ(-.2), // 倾斜
+			child: Text('有点意思')
 		);
     }
 
