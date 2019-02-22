@@ -63,7 +63,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
     }
 
     // RaisedButton 凸起效果，默认带有阴影和灰色背景
-    _raisedButtonDemo(bool withBorder) {
+    Widget _raisedButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
 			padding: EdgeInsets.only(top: 20),
@@ -89,7 +89,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
     }
 
     // FlatButton 扁平化，默认背景透明，没有阴影
-	_flatButtonDemo(bool withBorder) {
+	Widget _flatButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
 			padding: EdgeInsets.only(top: 20),
@@ -113,7 +113,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 	}
 
 	// OutlineButton 扁平化，背景透明，有边框
-	_outlineButtonDemo(bool withBorder) {
+	Widget _outlineButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
 			padding: EdgeInsets.only(top: 20),
@@ -138,7 +138,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 
 	// MaterialButton 扁平化，效果类似FlatButton。
 	// ⚠️ RaisedButton、FlatButton、OutlineButton都是直接或间接对RawMaterialButton的包装定制
-	_rawMaterialButtonDemo(bool withBorder) {
+	Widget _rawMaterialButtonDemo(bool withBorder) {
 		return Container(
 			alignment: Alignment.center,
 			padding: EdgeInsets.only(top: 20),
@@ -165,7 +165,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 	}
 
 	// 通过GestureDetector布局自定义样式的button
-	_myButton1() {
+	Widget _myButton1() {
 		return GestureDetector(
 			onTap: () => _showMyIOSDialog(),
 			child: Container(
@@ -188,7 +188,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 		);
 	}
 
-	_myButton2() {
+	Widget _myButton2() {
 		return Container(
 			alignment: Alignment.center,
 			width: 70,
@@ -217,7 +217,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 	}
 
 	// iOS风格的button
-	_iosButtonDemo() {
+	Widget _iosButtonDemo() {
 		return Container(
 			margin: EdgeInsets.only(top: 20),
 			child: CupertinoButton(
@@ -235,7 +235,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 	}
 
 	// IconButton，不包含文字，默认没有背景，点击后出现背景
-	_iconButton() {
+	Widget _iconButton() {
 		return Container(
 			margin: EdgeInsets.only(top: 20),
 			child: IconButton(
@@ -245,7 +245,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 		);
 	}
 
-	_showMyDialog() {
+	void _showMyDialog() {
 		showDialog(
 			context: context,
 			builder: (context) {
@@ -277,7 +277,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 		);
 	}
 
-	_showMyIOSDialog() {
+	void _showMyIOSDialog() {
 		showDialog(
 			context: context,
 			builder: (context) {
@@ -304,7 +304,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 	}
 
 	// 分割线
-	_separator() {
+	Widget _separator() {
 		return Container(
 			height: 10,
 			color: Color(0xFFE5E5E5),
@@ -313,7 +313,7 @@ class _MyButtonDemoState extends State<MyButtonDemo> {
 	}
 
 	// desc
-	_descText(String textStr) {
+	Widget _descText(String textStr) {
 		return Container(
 			padding: EdgeInsets.only(top: 20),
 			child: Text(

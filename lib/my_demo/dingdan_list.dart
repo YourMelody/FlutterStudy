@@ -157,7 +157,7 @@ class _InformationItem extends StatelessWidget {
 		};
 
 	// 快递信息--富文本
-	_getRichTextInfo() {
+	Widget _getRichTextInfo() {
 		String textStr = infoDic["info"];
 		RegExp exp = new RegExp('1(3|4|5|7|8)\\d{9}');
 		List<String> listStr = textStr.split(exp);

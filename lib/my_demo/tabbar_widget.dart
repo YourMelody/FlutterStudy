@@ -83,8 +83,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 							return DingDanDemo();
 						}));
 					})
-				] : null
-			),
+				] : null,
+
+			)
 		);
 	}
 }

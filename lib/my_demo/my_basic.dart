@@ -56,7 +56,7 @@ class _ListItem extends StatelessWidget {
         );
     }
 
-    _onDartItemTap() {
+    void _onDartItemTap() {
 	    switch (curIndex) {
 		    case 0:
 		        // 常量和变量的基本使用
@@ -85,7 +85,7 @@ class _ListItem extends StatelessWidget {
 	    }
     }
 
-    _onWidgetItemTap(BuildContext context) {
+    void _onWidgetItemTap(BuildContext context) {
 	    switch (curIndex) {
 		    case 0:
 		    	// 无状态widget

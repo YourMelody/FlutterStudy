@@ -44,7 +44,7 @@ class DecoratedAndTransform extends StatelessWidget {
 	 *
 	 * BoxDecoration为Decoration的子类，实现了常用的装饰元素的绘制
 	 */
-	_getDecoratedBox() {
+	Widget _getDecoratedBox() {
 		return DecoratedBox(
 			decoration: BoxDecoration(
 				gradient: LinearGradient(colors: [Colors.red, Colors.orange[700]]), // 背景色渐变
@@ -66,7 +66,7 @@ class DecoratedAndTransform extends StatelessWidget {
 	}
 
 	// 倾斜
-	_getTransform() {
+	Widget _getTransform() {
 		return Container(
 			color: Colors.black,
 			child: Transform(
@@ -82,7 +82,7 @@ class DecoratedAndTransform extends StatelessWidget {
 	}
 
 	// 平移
-	_getTranslate() {
+	Widget _getTranslate() {
 		return DecoratedBox(
 			decoration: BoxDecoration(color: Colors.red),
 			child: Transform.translate(
@@ -93,7 +93,7 @@ class DecoratedAndTransform extends StatelessWidget {
 	}
 
 	// 旋转
-	_getRotate() {
+	Widget _getRotate() {
 		return DecoratedBox(
 			decoration: BoxDecoration(color: Colors.red),
 			child: Transform.rotate(
@@ -109,7 +109,7 @@ class DecoratedAndTransform extends StatelessWidget {
 	 */
 
 	// 缩放
-	_getScale() {
+	Widget _getScale() {
 		return Row(
 			mainAxisAlignment: MainAxisAlignment.center,
 			children: <Widget>[
@@ -127,7 +127,7 @@ class DecoratedAndTransform extends StatelessWidget {
 	}
 
 	// RotatedBox功能和Transform.rotate相似，最大的不同是，RotatedBox的变换是在布局阶段，会影响子widget的位置和大小
-	_getRotatedBox() {
+	Widget _getRotatedBox() {
 		return Row(
 			mainAxisAlignment: MainAxisAlignment.center,
 			children: <Widget>[

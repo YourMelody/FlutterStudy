@@ -64,7 +64,7 @@ class _DemoItem extends StatelessWidget {
 		);
 	}
 
-	_itemPress(context, index) {
+	 void _itemPress(context, index) {
 		switch (index) {
 			case 0:
 				Navigator.of(context).pushNamed('/jishuqi_demo');
@@ -82,7 +82,7 @@ class _DemoItem extends StatelessWidget {
 	}
 
 	// 返回一个居中带图标和文本的Item
-	_getBottomItem(IconData icon, String text) {
+	Widget _getBottomItem(IconData icon, String text) {
 		// 充满Row横向的布局
 		return Expanded(
 			child: Row(

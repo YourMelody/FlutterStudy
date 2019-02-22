@@ -51,7 +51,7 @@ class _AnimationStudy extends State<AnimationStudy> with TickerProviderStateMixi
 	}
 
 	@override
-	dispose() {
+	void dispose() {
 		aniCon.dispose();
 		super.dispose();
 	}

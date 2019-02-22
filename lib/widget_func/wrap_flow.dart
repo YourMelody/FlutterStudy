@@ -38,7 +38,7 @@ class MyWrapAndFlow extends StatelessWidget {
 	*  2、runSpacing：纵轴方向子widget的间距
 	*  3、runAlignment：纵轴方向对齐方式
 	*/
-	_getMyWrap() {
+	Widget _getMyWrap() {
 		return Wrap(
 			spacing: 10,
 			runSpacing: 8,
@@ -88,7 +88,7 @@ class MyWrapAndFlow extends StatelessWidget {
 	 *  1、使用复杂
 	 *  2、不能自适应widget的大小，必须通过指定父容器大小或实现TestFlowDelegate的getSize返回固定大小
 	 */
-	_getMyFlow() {
+	Widget _getMyFlow() {
 		return Flow(
 			delegate: _TestFlowDelegate(margin: EdgeInsets.all(10)),
 			children: <Widget>[
@@ -102,7 +102,7 @@ class MyWrapAndFlow extends StatelessWidget {
 		);
 	}
 
-	_myContainer(Color color) {
+	Widget _myContainer(Color color) {
 		return Container(width: 80, height: 80, color: color);
 	}
 
@@ -112,7 +112,7 @@ class MyWrapAndFlow extends StatelessWidget {
 	 * Stack允许子widget堆叠；
 	 * Positioned可以给子widget定位（根据Stack的四个角）
 	 */
-	_getMyStack() {
+	Widget _getMyStack() {
 		return Expanded(
 			child: Container(
 				color: Colors.blue,
@@ -140,7 +140,7 @@ class MyWrapAndFlow extends StatelessWidget {
 		);
 	}
 
-	_separator() {
+	Widget _separator() {
 		return Container(
 			height: 10,
 			margin: EdgeInsets.only(left: 0, right: 0),

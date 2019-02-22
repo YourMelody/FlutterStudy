@@ -23,7 +23,7 @@ class ColumnAndRow extends StatelessWidget {
 		);
 	}
 
-	_child1() {
+	Widget _child1() {
 		return Expanded(
 			child: Row(
 				// 子Widget的布局顺序（ltr: 从左至右）
@@ -61,7 +61,7 @@ class ColumnAndRow extends StatelessWidget {
 		);
 	}
 
-	_child2() {
+	Widget _child2() {
 		return Expanded(
 			child: Column(
 				children: <Widget>[
@@ -85,7 +85,7 @@ class ColumnAndRow extends StatelessWidget {
 
 	// ⚠️：如果Row里面嵌套Row，或者Column里面嵌套Column，则只有最外层的Row或Column会占用尽可能大的空间
 	// 里面Row或Column所占用的空间为实际大小。如果想让内部Row或Column占满，可以配合Expanded使用
-	_child3() {
+	Widget _child3() {
 		return Expanded(
 			flex: 2,
 			child: Container(

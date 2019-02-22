@@ -35,7 +35,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 		);
 	}
 
-	_getMyConstrainedBox() {
+	Widget _getMyConstrainedBox() {
 		return ConstrainedBox(
 			constraints: BoxConstraints(
 				minWidth: double.infinity, // 宽度尽可能大
@@ -45,7 +45,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 		);
 	}
 
-	_getMySizedBox() {
+	Widget _getMySizedBox() {
 		return SizedBox(
 			width: 80,
 			height: 80,
@@ -54,7 +54,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 	}
 
 	// 对于maxWidth和maxHeight，多重限制时去父子中相应数值较小的
-	_multiMaxConstrainedBox() {
+	Widget _multiMaxConstrainedBox() {
 		return ConstrainedBox(
 			constraints: BoxConstraints(
 				maxWidth: 60,
@@ -71,7 +71,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 	}
 
 	// 对于minWidth和minHeight，多重限制时去父子中相应数值较大的
-	_multiMinConstrainedBox() {
+	Widget _multiMinConstrainedBox() {
 		return ConstrainedBox(
 			constraints: BoxConstraints(
 				minWidth: 60,
@@ -88,7 +88,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 	}
 	
 	// UnconstrainedBox不会对子widget产生限制，允许子widget按照其本身大小绘制，多用于去除多重限制
-	_getUnconstrainedBox() {
+	Widget _getUnconstrainedBox() {
 		return ConstrainedBox(
 			constraints: BoxConstraints(
 				minWidth: 200,
@@ -106,7 +106,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 		);
 	}
 
-	_redBox(double h) {
+	Widget _redBox(double h) {
 		return Container(
 			height: h,
 			width: h,
@@ -117,7 +117,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 		);
 	}
 
-	_separator() {
+	Widget _separator() {
 		return Container(
 			margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
 			height: 10,

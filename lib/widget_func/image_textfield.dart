@@ -96,7 +96,7 @@ class _ImageAndTextFieldDemoState extends State<ImageAndTextFieldDemo> {
 	 */
 
     // 加载网路图片
-    _netImageDemo() {
+    Widget _netImageDemo() {
 		// 下面这两种写法效果一样
 //	    return Image.network(
 //		    'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2527385882,2413489660&fm=26&gp=0.jpg',
@@ -112,7 +112,7 @@ class _ImageAndTextFieldDemoState extends State<ImageAndTextFieldDemo> {
     }
 
 	// 加载本地资源图片
-	_localImageDemo() {
+	Widget _localImageDemo() {
 		// 这两种写法效果一样
 		return Image.asset(
 			'lib/images/my_icon.png',
@@ -128,7 +128,7 @@ class _ImageAndTextFieldDemoState extends State<ImageAndTextFieldDemo> {
 
 
 
-    _textFieldDemo0() {
+    Widget _textFieldDemo0() {
 		return TextField(
 			maxLength: 30,
 			maxLines: 1,
@@ -162,7 +162,7 @@ class _ImageAndTextFieldDemoState extends State<ImageAndTextFieldDemo> {
     }
 
     // iOS风格的TextField
-    _textFieldDemo1() {
+    Widget _textFieldDemo1() {
 		return CupertinoTextField(
 			maxLength: 200,
 			maxLines: 1,
