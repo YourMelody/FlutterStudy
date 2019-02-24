@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 class DingDanDemo extends StatelessWidget {
 	final List dataSource = [
-		{"info": "[北京市]已签收，感谢使用顺丰，期待再次为您服务，感谢使用顺丰速运，期待再次为您服务", "time": "2018/10/22 下午12:22:22"},
+		{"info": "[北京市]已签收，感谢使用顺丰，期待再次为您服务，感谢使用顺丰速运，期待再次为您服务，期待再次为您服务，期待再次为您服务", "time": "2018/10/22 下午12:22:22"},
 		{"info": "[北京市]北京朝阳区来广营营业点派件员：顺丰速运 18888888888 正在为您派件", "time": "2018/10/22 下午12:22:22"},
 		{"info": "药师已审核通过", "time": "2018/10/22 下午12:22:22"},
 		{"info": "业务已审核通过", "time": null},
@@ -44,11 +44,12 @@ class _ItemHeader extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return Container(
-			padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+			padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
 			height: 49,
 			decoration: BoxDecoration(
 				// 设置container的边框
 				border: Border(
+					// 默认width： 1
 					bottom: BorderSide(
 						color: Color(0xFFE5E5E5)
 					)
@@ -92,7 +93,6 @@ class _InformationItem extends StatelessWidget {
 					crossAxisAlignment: CrossAxisAlignment.stretch,
 					children: <Widget>[
 						Container(
-							alignment: Alignment.center,
 							width: 15,
 							child: Column(
 								children: <Widget>[

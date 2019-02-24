@@ -6,7 +6,7 @@ class ContainerDemo extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return Scaffold(
 			appBar: AppBar(
-				title: Text('Container使用'),
+				title: Text('Text和Container使用'),
 			),
 			body: Center(
 				child: Column(
@@ -116,7 +116,7 @@ class ContainerDemo extends StatelessWidget {
 	 */
 	Widget _getMyContainer() {
 		return Container(
-			alignment: Alignment.center,
+			alignment: Alignment.bottomLeft,
 			constraints: BoxConstraints(
 				minWidth: 100,
 				minHeight: 100
@@ -140,14 +140,14 @@ class ContainerDemo extends StatelessWidget {
 				boxShadow: [ // 阴影效果
 					BoxShadow(
 						color: Colors.black54,
-						offset: Offset(2.0, 2.0),
-						blurRadius: 4.0
+						offset: Offset(10.0, 10.0),
+						blurRadius: 5.0
 					)
 				],
 
 				gradient: RadialGradient( // 背景径向渐变
 					colors: [Colors.red, Colors.orange],
-					center: Alignment.topLeft,
+					center: Alignment.center,
 					radius: .98
 				)
 			),

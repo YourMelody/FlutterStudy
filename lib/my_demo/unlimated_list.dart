@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
@@ -9,10 +11,19 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+	static const String loadingTag = '没有了！';
+	static const Widget diver1 = Divider(color: Colors.grey);
+
 	// Dart语言中，使用下划线前缀标识符，会强制其变成私有的
-	final _suggestions = <WordPair>[];
-	final _saved = Set<WordPair>();
+	final _suggestions = <String>[loadingTag];
+	final _saved = Set<String>();
 	final TextStyle _biggerFont = TextStyle(fontSize: 18.0);
+
+	@override
+	void initState() {
+		super.initState();
+		_retrieveData();
+	}
 
 	@override
 	Widget build(BuildContext context) {
@@ -33,10 +44,7 @@ class _RandomWordsState extends State<RandomWords> {
 				builder: (context) {
 					final tiles = _saved.map((pair) {
 						return ListTile(
-							title: Text(
-								pair.asPascalCase,
-								style:_biggerFont,
-							),
+							title: Text(pair, style:_biggerFont)
 						);
 					});
 
@@ -56,36 +64,56 @@ class _RandomWordsState extends State<RandomWords> {
 		);
 	}
 
-	Widget _buildSuggestions() {
-		return ListView.builder(
-			padding: const EdgeInsets.all(16.0),
-			// 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
-			// 在偶数行，为单词对添加一个ListTile row.
-			// 在奇数行，添加一个分割线
-			itemBuilder: (context, i) {
-				// 在每一行之前，添加一个1像素高的分割线
-				if (i.isOdd) return Divider();
+	void _retrieveData() {
+		Future.delayed(Duration(seconds: 1)).then((e) {
+			_suggestions.insertAll(
+				_suggestions.length - 1,
+				generateWordPairs().take(10).map((e) => e.asPascalCase).toList()
+			);
+			setState(() {
 
-				// 语法 "i ~/ 2" 表示i除以2，但返回值是整形（向下取整），比如i为：1, 2, 3, 4, 5，
-				// 结果为0, 1, 1, 2, 2， 这可以计算出ListView中减去分隔线后的实际单词对数量
-				final index = i ~/ 2;
-				// 如果是建议列表中最后一个单词对
-				if (index >= _suggestions.length) {
-					// 接着再生成10个单词对，然后添加到建议列表
-					_suggestions.addAll(generateWordPairs().take(10));
+			});
+		});
+	}
+
+	Widget _buildSuggestions() {
+		return ListView.separated(
+			padding: const EdgeInsets.only(left: 16),
+			itemCount: _suggestions.length,
+			itemBuilder: (context, i) {
+				if (_suggestions[i] == loadingTag) {
+					if (_suggestions.length < 100) {
+						// 获取数据
+						_retrieveData();
+						// 显示loading
+						return Container(
+							alignment: Alignment.center,
+							padding: EdgeInsets.all(16.0),
+							child: SizedBox(
+								width: 24, height: 24,
+								child: CircularProgressIndicator(strokeWidth: 2.0)
+							),
+						);
+					} else {
+						return Container(
+							padding: EdgeInsets.all(16.0),
+							alignment: Alignment.center,
+							child: Text('没有更多数据了！', style: TextStyle(color: Colors.grey))
+						);
+					}
 				}
-				return _buildRow(_suggestions[index]);
+				return _buildRow(_suggestions[i], i);
+			},
+			separatorBuilder: (BuildContext context, int index) {
+				return diver1;
 			},
 		);
 	}
 
-	Widget _buildRow(WordPair pair) {
+	Widget _buildRow(String pair, int i) {
 		final alreadySaved = _saved.contains(pair);
 		return ListTile (
-			title: Text (
-				pair.asPascalCase,
-				style: _biggerFont,
-			),
+			title: Text ('$i、$pair', style: _biggerFont),
 			trailing: Icon(
 				alreadySaved ? Icons.favorite : Icons.favorite_border,
 				color: alreadySaved ? Colors.red : null,

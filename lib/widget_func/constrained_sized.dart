@@ -53,7 +53,7 @@ class MyConstrainedAndSized extends StatelessWidget {
 		);
 	}
 
-	// 对于maxWidth和maxHeight，多重限制时去父子中相应数值较小的
+	// 对于maxWidth和maxHeight，多重限制时取父子中相应数值较小的
 	Widget _multiMaxConstrainedBox() {
 		return ConstrainedBox(
 			constraints: BoxConstraints(
