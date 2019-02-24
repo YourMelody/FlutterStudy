@@ -8,11 +8,12 @@ class MyTabBarWidget extends StatefulWidget {
 	_MyTabBarWidgetState createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget> {
+class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProviderStateMixin{
 	int _curIndex = 0;
 
-	List<Widget> _widget = List();
+	List _widget = List();
 	List<String> _titles;
+	TabController _tabController;
 
 	final List<Map> dartList = [
 		{'title': '常量和变量', 'desc': '常量/变量的基本用法'},
@@ -35,16 +36,33 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 		{'title': 'DecoratedBox & Transform', 'desc': '装饰容器DecoratedBox和变换Transform'}
 	];
 
+
 	@override
 	void initState() {
 		super.initState();
+
+		_tabController = TabController(length: 2, vsync: this);
+		_tabController.addListener(() {
+			// ⚠️ 滑动切换调用一次；点击切换会连续调用两次
+			print(_tabController.index);
+		});
+
+		final TabBarView _bottomTabBarView = TabBarView(
+			controller: _tabController,
+			children: <Widget>[
+				MyBasic(dataList: dartList, basic: ShowBasic.ShowDartBasic),
+				Container(
+					alignment: Alignment.center,
+					child: Text('药品库房', textScaleFactor: 2)
+				)
+			],
+		);
 		_widget
-			..add(MyBasic(dataList: dartList, basic: ShowBasic.ShowDartBasic))
+			..add(_bottomTabBarView)
 			..add(MyBasic(dataList: widgetList, basic: ShowBasic.ShowWidgetBasic))
 			..add(HomeDemoWidget());
 
 		_titles = ['Dart', 'Widget', 'Demo'];
-
 	}
 
 	@override
@@ -85,6 +103,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> {
 					})
 				] : null,
 
+				bottom: _curIndex == 0 ? TabBar(
+					controller: _tabController,
+					tabs: <Widget> [
+						Tab(text: 'Dart基础'),
+						Tab(text: '药品库房')
+					],
+				) : null,
 			)
 		);
 	}

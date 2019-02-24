@@ -19,6 +19,7 @@ class _DemoItem extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return Container(
+			color: Colors.blue,
 			// Card：默认margin为4，自带边框圆角、背景色
 			child: Card(
 				child: FlatButton(
