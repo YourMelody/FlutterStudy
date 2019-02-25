@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_demo.dart';
 import 'my_basic.dart';
 import 'dingdan_list.dart';
+import 'package:flutter_app/jk_druglib/drug_lib_widget.dart';
 
 class MyTabBarWidget extends StatefulWidget {
 	@override
@@ -51,10 +52,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 			controller: _tabController,
 			children: <Widget>[
 				MyBasic(dataList: dartList, basic: ShowBasic.ShowDartBasic),
-				Container(
-					alignment: Alignment.center,
-					child: Text('药品库房', textScaleFactor: 2)
-				)
+				JKDrugLibWidget()
 			],
 		);
 		_widget
@@ -107,7 +105,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 					controller: _tabController,
 					tabs: <Widget> [
 						Tab(text: 'Dart基础'),
-						Tab(text: '药品库房')
+						Tab(text: '药品库')
 					],
 				) : null,
 			)
