@@ -17,6 +17,7 @@ class MyBasic extends StatelessWidget {
 	MyBasic({Key key, this.dataList, this.basic}) : super(key: key);
 	@override
 	Widget build(BuildContext context) {
+		print('afafafafafaf');
 		return ListView.builder(
 			itemBuilder: (context, index) => _ListItem(dataList[index], index, basic),
 			itemCount: dataList.length

@@ -162,8 +162,7 @@ class _JiShuQiState extends State<JiShuQi> {
 											body: Center(child: Text('This is new route'))
 										);
 									},
-									fullscreenDialog: false,
-									maintainState: false
+									fullscreenDialog: false
 								));
 							},
 							child: Text('open new route'),

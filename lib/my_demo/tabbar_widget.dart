@@ -41,7 +41,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 	@override
 	void initState() {
 		super.initState();
-
 		_tabController = TabController(length: 2, vsync: this);
 		_tabController.addListener(() {
 			// ⚠️ 滑动切换调用一次；点击切换会连续调用两次

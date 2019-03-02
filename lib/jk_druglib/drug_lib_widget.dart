@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_app/utiles/HttpUtil.dart';
 
 class JKDrugLibWidget extends StatefulWidget {
 	@override
@@ -16,7 +14,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 	@override
 	void initState() {
 		super.initState();
-		_loadAsset();
+		_initData();
 	}
 
 	@override
@@ -48,11 +46,14 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 		);
 	}
 
-	void _loadAsset() async {
-		// 加载本地文本资源文件
-		String str = await rootBundle.loadString('lib/images/result.json');
+	// 请求数据
+	void _initData() async {
+		Map dataMap = await HttpUtil().get('product/listCategory', data: {'useSource':'2'});
+		List tempMap = [{'categoryName': '名医推荐', 'categories': [{'categoryName': '名医推荐', 'categories': []}]}];
+		tempMap.addAll(dataMap['data']);
+		dataMap['data'] = tempMap;
 		setState(() {
-			dataSource = json.decode(str);
+			dataSource = dataMap;
 		});
 	}
 
@@ -131,6 +132,9 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 		List data = dataSource['data'][_curIndex]['categories'];
 		return ListView.separated(
 			itemBuilder: (context, index) {
+				if (_curIndex == 0 && index == 0) {
+					return _getRightFirstItem(data[index]['categoryName']);
+				}
 				return _getRightItem(data[index]['categoryName'], data[index]['categories']);
 			},
 			itemCount: data.length,
@@ -144,20 +148,53 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 		);
 	}
 
+	_getRightFirstItem(String itemName) {
+		return GestureDetector(
+			child: UnconstrainedBox(
+				alignment: Alignment.centerLeft,
+				child: Container(
+					padding: EdgeInsets.only(left: 5),
+					width: 130,
+					child: Column(
+						children: <Widget>[
+							Padding(padding: EdgeInsets.only(top: 20)),
+							Image.asset(
+								'lib/images/pharmacy_mytj.png',
+								width: 110
+							),
+							Padding(padding: EdgeInsets.only(top: 10)),
+							Text(
+								itemName,
+								textAlign: TextAlign.center,
+								style: TextStyle(fontSize: 14, color: Colors.black54)
+							)
+						],
+					)
+				)
+			),
+
+			onTap: () => _gotoProductList(itemName),
+		);
+	}
+
 	_getRightItem(String itemName, List categories) {
 		return Column(
 			children: <Widget>[
-				Container(
-					padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-					child: Row(
-						children: <Widget>[
-							Expanded(child: Text(
-								itemName,
-								style: TextStyle(fontSize: 14, color: Colors.black54)
-							)),
-							Icon(Icons.navigate_next, size: 18)
-						],
+				GestureDetector(
+					child: Container(
+						padding: EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+						child: Row(
+							children: <Widget>[
+								Expanded(child: Text(
+									itemName,
+									style: TextStyle(fontSize: 14, color: Colors.black54)
+								)),
+								Icon(Icons.navigate_next, size: 18)
+							],
+						),
 					),
+					
+					onTap: () => _gotoProductList(itemName),
 				),
 
 				categories.length == 0 ? Padding(padding: EdgeInsets.only()) :
@@ -172,21 +209,29 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 							runSpacing: 15,
 							spacing: 10,
 							children: categories.map((e) {
-								return Container(
-									color: Color(0xfff4f6f9),
-									height: 70,
-									padding: EdgeInsets.symmetric(horizontal: 5),
-									width: (MediaQuery.of(context).size.width - 178) * 0.5,
-									alignment: Alignment.center,
-									child: Text(
-										e['categoryName'],
-										textAlign: TextAlign.center
+								return GestureDetector(
+									child: Container(
+										color: Color(0xfff4f6f9),
+										height: 70,
+										padding: EdgeInsets.symmetric(horizontal: 5),
+										width: (MediaQuery.of(context).size.width - 178) * 0.5,
+										alignment: Alignment.center,
+										child: Text(
+											e['categoryName'],
+											textAlign: TextAlign.center
+										),
 									),
+
+									onTap: () => _gotoProductList(e['categoryName']),
 								);
 							}).toList(),
 						),
 					)
 			],
 		);
+	}
+
+	_gotoProductList(String itemName) {
+		print('click---$itemName');
 	}
 }
