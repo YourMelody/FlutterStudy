@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/utiles/HttpUtil.dart';
+import 'package:flutter_app/utiles/BaseRequest.dart';
+import 'package:flutter_app/model/DrugClassModel.dart';
 
 class JKDrugLibWidget extends StatefulWidget {
 	@override
@@ -8,7 +9,7 @@ class JKDrugLibWidget extends StatefulWidget {
 }
 
 class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
-	Map dataSource;
+	List<DrugClassModel> dataSource;
 	int _curIndex = 0;
 
 	@override
@@ -47,13 +48,11 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 	}
 
 	// 请求数据
-	void _initData() async {
-		Map dataMap = await HttpUtil().get('product/listCategory', data: {'useSource':'2'});
-		List tempMap = [{'categoryName': '名医推荐', 'categories': [{'categoryName': '名医推荐', 'categories': []}]}];
-		tempMap.addAll(dataMap['data']);
-		dataMap['data'] = tempMap;
-		setState(() {
-			dataSource = dataMap;
+	void _initData() {
+		BaseRequest.getDrugClassList('2').then((response) {
+			setState(() {
+				dataSource = response;
+			});
 		});
 	}
 
@@ -92,21 +91,21 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 
 	_leftList() {
 		if (dataSource == null) return null;
-		List data = dataSource['data'];
 		return ListView.separated(
 			itemBuilder: (context, index) {
-				return _getLeftItem(data[index]['categoryName'], index);
+				return _getLeftItem(dataSource[index], index);
 			},
-			itemCount: data.length,
+			itemCount: dataSource.length,
 			separatorBuilder: (BuildContext context, int index) {
 				return Divider(color: Color(0xffe5e5e5), height: 0.5);
 			}
 		);
 	}
 
-	_getLeftItem(String itemName, int index) {
+	_getLeftItem(DrugClassModel model, int index) {
 		return GestureDetector(
 			onTap: () {
+				print(index);
 				setState(() {
 					_curIndex = index;
 				});
@@ -115,7 +114,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 				padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
 				color: index == _curIndex ? Color(0xfff4f6f9) : Colors.white,
 				child: Text(
-					itemName,
+					model.categoryName,
 					style: TextStyle(
 						color: index == _curIndex ? Color(0xff6bcbd6) : Color(0xff0a1314),
 						fontSize: 14
@@ -129,17 +128,18 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 
 	_rightList() {
 		if (dataSource == null) return null;
-		List data = dataSource['data'][_curIndex]['categories'];
+		List<DrugClassModel> data = dataSource[_curIndex].categories;
 		return ListView.separated(
 			itemBuilder: (context, index) {
+				print('_curindex = $_curIndex, index = $index');
 				if (_curIndex == 0 && index == 0) {
-					return _getRightFirstItem(data[index]['categoryName']);
+					return _getRightFirstItem('名医推荐');
 				}
-				return _getRightItem(data[index]['categoryName'], data[index]['categories']);
+				return _getRightItem(data[index]);
 			},
-			itemCount: data.length,
+			itemCount: _curIndex == 0 ? 1 : data.length,
 			separatorBuilder: (BuildContext context, int index) {
-				List cateList = data[index]['categories'];
+				List cateList = data[index].categories;
 				if (cateList.length == 0) {
 					return Divider(color: Color(0xffe5e5e5), height: 0.5);
 				}
@@ -154,7 +154,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 				alignment: Alignment.centerLeft,
 				child: Container(
 					padding: EdgeInsets.only(left: 5),
-					width: 130,
+					width: 120,
 					child: Column(
 						children: <Widget>[
 							Padding(padding: EdgeInsets.only(top: 20)),
@@ -177,7 +177,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 		);
 	}
 
-	_getRightItem(String itemName, List categories) {
+	_getRightItem(DrugClassModel model) {
 		return Column(
 			children: <Widget>[
 				GestureDetector(
@@ -186,7 +186,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 						child: Row(
 							children: <Widget>[
 								Expanded(child: Text(
-									itemName,
+									model.categoryName,
 									style: TextStyle(fontSize: 14, color: Colors.black54)
 								)),
 								Icon(Icons.navigate_next, size: 18)
@@ -194,10 +194,10 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 						),
 					),
 					
-					onTap: () => _gotoProductList(itemName),
+					onTap: () => _gotoProductList(model.categoryName),
 				),
 
-				categories.length == 0 ? Padding(padding: EdgeInsets.only()) :
+				model.categories.length == 0 ? Padding(padding: EdgeInsets.only()) :
 					Container(
 						margin: EdgeInsets.only(right: 10),
 						padding: EdgeInsets.all(15),
@@ -208,7 +208,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 						child: Wrap(
 							runSpacing: 15,
 							spacing: 10,
-							children: categories.map((e) {
+							children: model.categories.map((e) {
 								return GestureDetector(
 									child: Container(
 										color: Color(0xfff4f6f9),
@@ -217,12 +217,12 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 										width: (MediaQuery.of(context).size.width - 178) * 0.5,
 										alignment: Alignment.center,
 										child: Text(
-											e['categoryName'],
+											e.categoryName,
 											textAlign: TextAlign.center
 										),
 									),
 
-									onTap: () => _gotoProductList(e['categoryName']),
+									onTap: () => _gotoProductList(e.categoryName),
 								);
 							}).toList(),
 						),
