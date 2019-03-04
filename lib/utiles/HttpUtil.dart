@@ -19,19 +19,10 @@ class HttpUtil {
 
 	HttpUtil() {
 		Map<String, dynamic> optHeader = {
-			'versionName':'2.6.1',
-			'versionCode':'20190114',
-			'appName':'%E5%81%A5%E5%AE%A2%E8%A1%8C',
-			'model':'iPhone8,2',
-			'clientname':'iPhone',
-			'channelId':'10000',
-			'idfa':'EE6C1572-06B5-4415-931A-247618068190',
-			'loginSource':'2',
-			'deviceUuid':'6815F5E3FE06436DBD6C0AD8DCFC970F',
-			'source':'2',
-			'applicationCode':'jkAgent',
-			'userId':'8271',
-			'userToken':'06d7e3dc1fbe847159e7b041e3f470aa'
+			'traceinfo': 'versionName=2.6.1;versionCode=20190114;appName=%E5%81%A5%E5%AE%A2%E8%A1%8C;model=iPhone8,2;clientname=iPhone;channelId=10000;idfa=EE6C1572-06B5-4415-931A-247618068190;loginSource=2;deviceUuid=6815F5E3FE06436DBD6C0AD8DCFC970F;source=2;applicationCode=jkAgent;userId=8271;userToken=7b8614da786ba248e0daa1e933424855',
+			'user-agent': 'HotSpot',
+			'accept-language': 'zh-cn',
+			'content-type': 'application/json'
 		};
 
 		options = BaseOptions(
@@ -46,7 +37,7 @@ class HttpUtil {
 		(dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
 			// 设置代理
 			client.findProxy = (uri) {
-				return 'PROXY 192.168.1.100:8888';
+				return 'PROXY 192.168.1.103:8888';
 			};
 		};
 	}

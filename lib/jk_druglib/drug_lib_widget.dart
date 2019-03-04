@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/utiles/BaseRequest.dart';
 import 'package:flutter_app/model/DrugClassModel.dart';
+import 'drug_list_widget.dart';
 
 class JKDrugLibWidget extends StatefulWidget {
 	@override
@@ -105,7 +106,6 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 	_getLeftItem(DrugClassModel model, int index) {
 		return GestureDetector(
 			onTap: () {
-				print(index);
 				setState(() {
 					_curIndex = index;
 				});
@@ -131,7 +131,6 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 		List<DrugClassModel> data = dataSource[_curIndex].categories;
 		return ListView.separated(
 			itemBuilder: (context, index) {
-				print('_curindex = $_curIndex, index = $index');
 				if (_curIndex == 0 && index == 0) {
 					return _getRightFirstItem('名医推荐');
 				}
@@ -173,7 +172,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 				)
 			),
 
-			onTap: () => _gotoProductList(itemName),
+			onTap: () => _gotoProductList(null),
 		);
 	}
 
@@ -194,7 +193,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 						),
 					),
 					
-					onTap: () => _gotoProductList(model.categoryName),
+					onTap: () => _gotoProductList(model),
 				),
 
 				model.categories.length == 0 ? Padding(padding: EdgeInsets.only()) :
@@ -222,7 +221,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 										),
 									),
 
-									onTap: () => _gotoProductList(e.categoryName),
+									onTap: () => _gotoProductList(e),
 								);
 							}).toList(),
 						),
@@ -231,7 +230,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 		);
 	}
 
-	_gotoProductList(String itemName) {
-		print('click---$itemName');
+	_gotoProductList(DrugClassModel model) {
+		Navigator.of(context).push(MaterialPageRoute(builder: (_) => DrugListWidget(model)));
 	}
 }

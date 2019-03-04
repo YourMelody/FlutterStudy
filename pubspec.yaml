@@ -49,6 +49,8 @@ flutter:
     - lib/images/my_icon.png
     - lib/images/local.json
     - lib/images/pharmacy_mytj.png
+    - lib/images/default_medicine.png
+    - lib/images/label_rx.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
