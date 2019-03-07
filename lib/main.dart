@@ -85,6 +85,7 @@ import 'widget_func/switch_checkbox.dart';
 import 'widget_func/wrap_flow.dart';
 import 'widget_func/constrained_sized.dart';
 import 'widget_func/decorated_transform.dart';
+import 'widget_func/animation_study.dart';
 //import 'package:flutter/rendering.dart';
 
 // 计时器示例
@@ -123,7 +124,8 @@ void main() {
 			'/manage_state': (_) => ManageState(),
 			'/wrap_flow': (_) => MyWrapAndFlow(),
 			'/constrained_sized': (_) => MyConstrainedAndSized(),
-			'/decorated_transform': (_) => DecoratedAndTransform()
+			'/decorated_transform': (_) => DecoratedAndTransform(),
+			'/animation_study': (_) => AnimationStudy(titleStr: '动画学习')
 		},
 	));
 }

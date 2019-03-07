@@ -34,7 +34,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 		{'title': 'Switch & Checkbox & Form', 'desc': '单选开关、复选框及表单的使用'},
 		{'title': 'Wrap & Flow & Stack & Positioned', 'desc': '流式布局和层叠布局使用'},
 		{'title': 'ConstrainedBox & SizedBox', 'desc': ''},
-		{'title': 'DecoratedBox & Transform', 'desc': '装饰容器DecoratedBox和变换Transform'}
+		{'title': 'DecoratedBox & Transform', 'desc': '装饰容器DecoratedBox和变换Transform'},
+		{'title': 'Animation', 'desc': '动画基础'}
 	];
 
 

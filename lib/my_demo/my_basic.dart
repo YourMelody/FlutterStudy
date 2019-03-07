@@ -121,6 +121,9 @@ class _ListItem extends StatelessWidget {
 		    case 8:
 			    Navigator.of(context).pushNamed('/decorated_transform');
 			    break;
+			case 9:
+				Navigator.of(context).pushNamed('/animation_study');
+				break;
 	    }
     }
 }
