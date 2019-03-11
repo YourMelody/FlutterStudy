@@ -9,9 +9,20 @@ class BaseUrl {
 			case 0:
 				return "http://bj-api.d.jianke.com/";
 			case 1:
-				return "http://bjtest.jianke.com/";
+				return "https://bjtest.jianke.com/";
 			case 2:
-				return "http://bj-api.jianke.com/";
+				return "https://bj-api.jianke.com/";
+		}
+	}
+
+	GDUrl() {
+		switch(JK_APP_DEBUG_SETTING) {
+			case 0:
+				return "http://app-gateway.dev.jianke.com/";
+			case 1:
+				return "http://app-gateway.dev.jianke.com/";
+			case 2:
+				return "https://acgi.jianke.com/";
 		}
 	}
 }

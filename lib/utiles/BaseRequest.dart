@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'HttpUtil.dart';
+import 'BaseUrlUtil.dart';
 import 'package:flutter_app/model/DrugClassModel.dart';
 import 'package:flutter_app/model/MedicineItemModel.dart';
+
 
 class BaseRequest {
 	// 获取药品库
@@ -42,6 +44,24 @@ class BaseRequest {
 			return (data['data']['list'] as List)?.map((e) =>
 			e == null ? null : MedicineItemModel.fromJson(e)
 			)?.toList();
+		});
+	}
+
+	// 药品详情
+	static Future<dynamic> getMedicineDetail(int drugCode, {CancelToken cancelToken}) {
+		return HttpUtil().get('details/api/app/mainData/$drugCode',
+			baseUrl: BaseUrl().GDUrl(),
+			cancelToken: cancelToken).then((data) {
+			return data;
+		});
+	}
+
+	// 药品库存
+	static Future<dynamic> getMedicineLastCount(int drugCode, {CancelToken cancelToken}) {
+		return HttpUtil().post('product/stock/getLast',
+			data: {'productCodeList': [drugCode.toString()], 'hospital': 'true'},
+			cancelToken: cancelToken).then((data) {
+			return data;
 		});
 	}
 }

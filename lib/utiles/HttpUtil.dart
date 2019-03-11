@@ -19,15 +19,13 @@ class HttpUtil {
 
 	HttpUtil() {
 		Map<String, dynamic> optHeader = {
-			'traceinfo': 'versionName=2.6.1;versionCode=20190114;appName=%E5%81%A5%E5%AE%A2%E8%A1%8C;model=iPhone8,2;clientname=iPhone;channelId=10000;idfa=EE6C1572-06B5-4415-931A-247618068190;loginSource=2;deviceUuid=6815F5E3FE06436DBD6C0AD8DCFC970F;source=2;applicationCode=jkAgent;userId=8271;userToken=7b8614da786ba248e0daa1e933424855',
+			'traceinfo': 'versionName=2.6.1;versionCode=20190114;appName=%E5%81%A5%E5%AE%A2%E8%A1%8C;model=iPhone8,2;clientname=iPhone;channelId=10000;idfa=EE6C1572-06B5-4415-931A-247618068190;loginSource=2;deviceUuid=6815F5E3FE06436DBD6C0AD8DCFC970F;source=2;applicationCode=jkAgent;userId=8271;userToken=5eb4ee7ef3f1af72225b6a26854f7f89',
 			'user-agent': 'HotSpot',
 			'accept-language': 'zh-cn',
 			'content-type': 'application/json'
 		};
 
 		options = BaseOptions(
-			// 请求基地址
-			baseUrl: BaseUrl().BjUrl(),
 			//连接服务器超时时间，单位是毫秒.
 			connectTimeout: 30000,
 			headers: optHeader
@@ -37,15 +35,20 @@ class HttpUtil {
 		(dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
 			// 设置代理
 			client.findProxy = (uri) {
-				return 'PROXY 192.168.1.103:8888';
+				return 'PROXY 192.168.36.98:8888';
 			};
 		};
 	}
 
 	// get
-	get<T>(url, {data, options, cancelToken}) async {
+	get<T>(url, {baseUrl, data, options, cancelToken}) async {
 		Response<T> response;
 		try{
+			if (baseUrl == null) {
+				dio.options.baseUrl = BaseUrl().BjUrl();
+			} else {
+				dio.options.baseUrl = baseUrl;
+			}
 			response = await dio.get<T>(
 				url,
 				queryParameters: data,
@@ -58,9 +61,14 @@ class HttpUtil {
 	}
 
 	// post
-	post<T>(url, {data, options, cancelToken}) async {
+	post<T>(url, {baseUrl, data, options, cancelToken}) async {
 		Response<T> response;
 		try{
+			if (baseUrl == null) {
+				dio.options.baseUrl = BaseUrl().BjUrl();
+			} else {
+				dio.options.baseUrl = baseUrl;
+			}
 			response = await dio.post<T>(
 				url,
 				data: data,

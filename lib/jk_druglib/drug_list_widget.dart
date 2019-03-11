@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/utiles/BaseRequest.dart';
 import 'package:flutter_app/model/MedicineItemModel.dart';
 import 'package:flutter_app/model/DrugClassModel.dart';
+import 'drug_detail_widget.dart';
 
 class DrugListWidget extends StatefulWidget {
 	DrugListWidget(this.drugClassModel);
-	DrugClassModel drugClassModel;
+	final DrugClassModel drugClassModel;
 	@override
 	_DrugListWidgetState createState() => _DrugListWidgetState();
 }
@@ -53,7 +54,7 @@ class _DrugListWidgetState extends State<DrugListWidget> {
 							separatorBuilder: (BuildContext context, int index) {
 								return Divider(color: Color(0xffe5e5e5), height: 0.5);
 							},
-							itemCount: dataSource.length
+							itemCount: dataSource == null ? 0 : dataSource.length
 						),
 					)
 				],
@@ -132,7 +133,9 @@ class _DrugListWidgetState extends State<DrugListWidget> {
 			),
 
 			onTap: () {
-				print(model.productName);
+				Navigator.of(context).push(MaterialPageRoute(
+					builder: (_) => DrugDetailWidget(model)
+				));
 			},
 		);
 	}
