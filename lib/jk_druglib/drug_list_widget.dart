@@ -108,6 +108,8 @@ class _DrugListWidgetState extends State<DrugListWidget> {
 										placeholder: 'lib/images/default_medicine.png',
 										image: model.img320 == null ? '' : 'https://img.jianke.com${model.img320}',
 										width: 64, height: 64,
+										fadeOutDuration: Duration(milliseconds: 50),
+										fadeInDuration: Duration(milliseconds: 50)
 									)
 								),
 								Positioned(
