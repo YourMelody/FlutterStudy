@@ -19,7 +19,7 @@ class HttpUtil {
 
 	HttpUtil() {
 		Map<String, dynamic> optHeader = {
-			'traceinfo': 'versionName=2.6.1;versionCode=20190114;appName=%E5%81%A5%E5%AE%A2%E8%A1%8C;model=iPhone8,2;clientname=iPhone;channelId=10000;idfa=EE6C1572-06B5-4415-931A-247618068190;loginSource=2;deviceUuid=6815F5E3FE06436DBD6C0AD8DCFC970F;source=2;applicationCode=jkAgent;userId=8271;userToken=5eb4ee7ef3f1af72225b6a26854f7f89',
+			'traceinfo': 'versionName=2.6.1;versionCode=20190401;appName=%E5%81%A5%E5%AE%A2%E8%A1%8C;model=iPhone8,2;clientname=iPhone;channelId=10000;idfa=EE6C1572-06B5-4415-931A-247618068190;loginSource=2;deviceUuid=6815F5E3FE06436DBD6C0AD8DCFC970F;source=2;applicationCode=jkAgent;userId=8271;userToken=15c1da98c59e56e5471e4152cf73c005',
 			'user-agent': 'HotSpot',
 			'accept-language': 'zh-cn',
 			'content-type': 'application/json'
@@ -35,7 +35,7 @@ class HttpUtil {
 		(dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
 			// 设置代理
 			client.findProxy = (uri) {
-				return 'PROXY 192.168.36.98:8888';
+				return 'PROXY 192.168.36.226:8888';
 			};
 		};
 	}
