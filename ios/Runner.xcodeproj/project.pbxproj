@@ -19,7 +19,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		BDE3874EB2E4B4198D761DBD /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694A26C40B2204B488ED001B /* Pods_Runner.framework */; };
+		9ACCF6652269A100009A248A /* flutter_webview_plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACCF6642269A100009A248A /* flutter_webview_plugin.framework */; };
+		9ACCF6672269A107009A248A /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACCF6662269A107009A248A /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ACCF6642269A100009A248A /* flutter_webview_plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = flutter_webview_plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ACCF6662269A107009A248A /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +65,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ACCF6672269A107009A248A /* Pods_Runner.framework in Frameworks */,
+				9ACCF6652269A100009A248A /* flutter_webview_plugin.framework in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
 				3B80C3941E831B6300D905FE /* App.framework in Frameworks */,
-				BDE3874EB2E4B4198D761DBD /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +78,8 @@
 		16AD89BDC114135813E5D391 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9ACCF6662269A107009A248A /* Pods_Runner.framework */,
+				9ACCF6642269A100009A248A /* flutter_webview_plugin.framework */,
 				694A26C40B2204B488ED001B /* Pods_Runner.framework */,
 			);
 			name = Frameworks;

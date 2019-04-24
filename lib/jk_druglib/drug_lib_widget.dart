@@ -9,7 +9,7 @@ class JKDrugLibWidget extends StatefulWidget {
 	_JKDrugLibWidgetState createState() => _JKDrugLibWidgetState();
 }
 
-class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
+class _JKDrugLibWidgetState extends State<JKDrugLibWidget> with AutomaticKeepAliveClientMixin {
 	List<DrugClassModel> dataSource;
 	int _curIndex = 0;
 
@@ -233,4 +233,7 @@ class _JKDrugLibWidgetState extends State<JKDrugLibWidget> {
 	_gotoProductList(DrugClassModel model) {
 		Navigator.of(context).push(MaterialPageRoute(builder: (_) => DrugListWidget(model)));
 	}
+
+	@override
+	bool get wantKeepAlive => true;
 }

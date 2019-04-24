@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/model/DrugClassModel.dart';
 import 'home_demo.dart';
 import 'my_basic.dart';
 import 'dingdan_list.dart';
@@ -9,12 +10,15 @@ class MyTabBarWidget extends StatefulWidget {
 	_MyTabBarWidgetState createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProviderStateMixin{
+class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProviderStateMixin {
 	int _curIndex = 0;
 
 	List _widget = List();
 	List<String> _titles;
 	TabController _tabController;
+	PageController _pageController = PageController(initialPage: 0);
+
+	List<DrugClassModel> dataSource;
 
 	final List<Map> dartList = [
 		{'title': '常量和变量', 'desc': '常量/变量的基本用法'},
@@ -48,19 +52,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 			print(_tabController.index);
 		});
 
-		final TabBarView _bottomTabBarView = TabBarView(
-			controller: _tabController,
-			children: <Widget>[
-				MyBasic(dataList: dartList, basic: ShowBasic.ShowDartBasic),
-				JKDrugLibWidget()
-			],
-		);
-		_widget
-			..add(_bottomTabBarView)
-			..add(MyBasic(dataList: widgetList, basic: ShowBasic.ShowWidgetBasic))
-			..add(HomeDemoWidget());
-
-		_titles = ['Dart', 'Widget', 'Demo'];
+		_titles = ['Dart', 'Widget', '药品库'];
 	}
 
 	@override
@@ -70,26 +62,47 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 				items: [
 					BottomNavigationBarItem(
 						icon: Icon(Icons.home),
-						title: Text('Dart')
+						title: Text(_titles[0])
 					),
 					BottomNavigationBarItem(
 						icon: Icon(Icons.book),
-						title: Text('Widget')
+						title: Text(_titles[1])
 					),
 					BottomNavigationBarItem(
 						icon: Icon(Icons.directions_bike),
-						title: Text('Demo')
-					)
+						title: Text(_titles[2])
+					),
 				],
 				currentIndex: _curIndex,
 				onTap: (int index) {
+					_pageController.jumpToPage(index);
 					setState(() {
 						_curIndex = index;
 					});
 				},
 				type: BottomNavigationBarType.fixed
 			),
-			body: _widget[_curIndex],
+			body: PageView(
+				children: <Widget>[
+					TabBarView(
+						controller: _tabController,
+						children: <Widget>[
+							// dart基础
+							MyBasic(dataList: dartList, basic: ShowBasic.ShowDartBasic),
+							// demo
+							HomeDemoWidget()
+						],
+					),
+
+					// widget基础
+					MyBasic(dataList: widgetList, basic: ShowBasic.ShowWidgetBasic),
+
+					// 药品库
+					JKDrugLibWidget()
+				],
+				controller: _pageController,
+				physics: NeverScrollableScrollPhysics()
+			),
 
 			appBar: AppBar(
 				title: Text(_titles[_curIndex]),
@@ -105,7 +118,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
 					controller: _tabController,
 					tabs: <Widget> [
 						Tab(text: 'Dart基础'),
-						Tab(text: '药品库')
+						Tab(text: 'Demo')
 					],
 				) : null,
 			)

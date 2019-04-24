@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/MedicineItemModel.dart';
 import 'package:flutter_app/utiles/BaseRequest.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class DrugDetailWidget extends StatefulWidget {
 	DrugDetailWidget(this.drugModel);
@@ -70,7 +71,11 @@ class _DrugDetailWidgetState extends State<DrugDetailWidget> {
 				// 分割线
 				Container(height: 10, color: Colors.grey[100]),
 				// 说明书web
-
+				Expanded(child: WebviewScaffold(
+					url: 'https://app-hybrid.jianke.com/product/instructionBook/${widget.drugModel.productCode}',
+					withZoom: false,
+					supportMultipleWindows: true,
+				))
 			])
 		);
 	}
